@@ -1,0 +1,15 @@
+{% macro twilio_numbers(numbers) -%}
+    {% if numbers %}
+        <label for="twilio_number">Twilio Number</label>
+        <select id="twilio_number" name="twilio_number" class="form-control">
+            {% for sid, display in numbers %}
+                <option value="{{ sid }}">{{ display }}</option>
+            {% endfor %}
+        </select>
+        <p class="help-block">Need more numbers? <a href="https://www.twilio.com/user/account/phone-numbers/available" target="_blank">Get more numbers</a></p>
+    {% else %}
+        <div class="alert alert-danger">
+            You have no Twilio Numbers, please <a href="https://www.twilio.com/user/account/phone-numbers/available" target="_blank">buy a number</a> before proceeding
+        </div>
+    {% endif %}
+{%- endmacro %}

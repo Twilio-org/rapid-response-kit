@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+{% import 'common.html' as common %}
+{% set title = 'Town Hall' %}
+
+{% block content %}
+    <h1>Town Hall</h1>
+    <p>Your Twilio Number dials the entered numbers, connecting them in a conference call.</p>
+    <form class="form" method="POST">
+        <div class="form-group">
+            {{ common.twilio_numbers(numbers) }}
+        </div>
+        <div class="form-group">
+            <label for="room" class=" control-label">Conference Room</label>
+            <input type="text" id="room" name="room" class="form-control" placeholder="The name for your conference." />
+        </div>
+        <div class="form-group">
+            <label for="numbers" class=" control-label">Phone Numbers</label>
+            <textarea id="numbers" name="numbers" class="form-control" rows="8" placeholder="Type or paste phone numbers on different lines."></textarea>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg">Start Conference</button>
+        </div>
+    </form>
+{% endblock %}

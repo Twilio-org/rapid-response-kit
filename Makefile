@@ -1,0 +1,33 @@
+VIRTUALENV = $(shell which virtualenv)
+
+ifeq ($(strip $(VIRTUALENV)),)
+  VIRTUALENV = /usr/local/python/bin/virtualenv
+endif
+
+
+install: venv
+	. venv/bin/activate; pip install -r requirements.txt \
+		--download-cache /tmp/pipcache
+	. venv/bin/activate; python install.py
+	. venv/bin/activate; python setup.py install
+
+develop: venv
+	. venv/bin/activate; pip install -r requirements.txt \
+		--download-cache /tmp/pipcache
+	. venv/bin/activate; python install.py
+	. venv/bin/activate; python setup.py develop
+
+venv:
+	$(VIRTUALENV) venv
+
+serve: venv
+	. venv/bin/activate; python rapid_response_kit/app.py
+
+debug: venv
+	. venv/bin/activate; python rapid_response_kit/app.py --debug
+
+test: venv
+	. venv/bin/activate; nosetests tests
+
+clean:
+	rm -rf venv

@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+{% import 'common.html' as common %}
+{% set title = 'Conference Line' %}
+
+{% block content %}
+    <h1>Conference Line</h1>
+    <p>Set one of your Twilio Numbers to be a conference line</p>
+    <form class="form" method="POST">
+        <div class="form-group">
+            {{ common.twilio_numbers(numbers) }}
+        </div>
+        <div class="form-group">
+            <label for="whitelist" class="control-label">Whitelist</label>
+            <textarea class="form-control" name="whitelist" id="whitelist" rows="10" placeholder="Enter numbers of callers that will be accepted into the conference. Leave blank to keep open."></textarea>
+        </div>
+        <div class="form-group">
+            <label for="room" class="control-label">Room Name</label>
+            <input type="text" class="form-control" name="room" id="room" placeholder="Leave blank to prompt for name."/>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg">Set Conference Line</button>
+        </div>
+    </form>
+{% endblock %}

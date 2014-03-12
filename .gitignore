@@ -1,0 +1,7 @@
+*.pyc
+*.egg-info
+build
+dist
+venv
+.DS_Store
+rapid_response_kit/utils/config.py
