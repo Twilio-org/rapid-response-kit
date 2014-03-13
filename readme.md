@@ -120,5 +120,11 @@ installation guide.  The flask server is not meant for production deployment, we
 suggest running the Twilio.org Rapid Response Kit via uwsgi and forwarding to it
 from nginx.
 
+## Meta
+No warranty expressed or implied. Software is as is. 
+MIT License
+Powered by Twilio .org
+
+
 The Twilio.org Rapid Response Kit is just a flask app, so feel free to deploy as you
 would any flask application.
