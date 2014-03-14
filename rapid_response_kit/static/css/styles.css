@@ -10,6 +10,12 @@ a:hover, a:active, a:visited, a:focus {
 p {
   padding-bottom: 10px;
 }
+
+p.phonenumlist {
+  padding: 0;
+  margin:0;
+}
+
 .nav>li>a:hover, .nav>li>a:focus {
   background-color: #dceee9;
 }
