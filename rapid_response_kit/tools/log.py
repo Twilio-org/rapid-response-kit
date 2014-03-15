@@ -19,8 +19,8 @@ def install(app):
 
         callnumlist = []
         for call in client.calls.list():
-            callnumlist.append(sms.to)
-            callnumlist.append(sms.from_)
+            callnumlist.append(call.to)
+            callnumlist.append(call.from_)
 
         smsnumlist = list(set(smsnumlist))
         callnumlist = list(set(callnumlist))
@@ -32,35 +32,32 @@ def install(app):
                     callnumlist.remove(num)
                 if num in smsnumlist:
                     smsnumlist.remove(num)
-
-
-        return render_template("log.html", smsnumlist=smsnumlist, callnumlist=callnumlist)
+        typeNum = "All Numbers"
+        return render_template("log.html", smsnumlist=smsnumlist, callnumlist=callnumlist, numbers=numbers, typeNum=typeNum)
 
 
     @app.route('/log', methods=['POST'])
     def do_log():
-        numbers = parse_numbers(request.form.get('numbers', ''))
-        twiml = "<Response><Say>{}</Say></Response>"
-        url = echo_twimlet(twiml.format(request.form.get('message', '')))
-
+        filternum = request.form['twilio_number']
+        numbers = twilio_numbers('phone_number')
+        typeNum = str(filternum)
         client = twilio()
 
-        for number in numbers:
-            try:
-                if request.form['method'] == 'sms':
-                    client.messages.create(
-                        body=request.form['message'],
-                        to=number,
-                        from_=request.form['twilio_number']
-                    )
-                else:
-                    client.calls.create(
-                        url=url,
-                        to=number,
-                        from_=request.form['twilio_number']
-                    )
-                flash("Sent {} the message".format(number), 'success')
-            except Exception:
-                flash("Failed to send to {}".format(number), 'danger')
+        smsnumlist = []
+        for sms in client.sms.messages.list():
+            if sms.to == filternum:
+                smsnumlist.append(sms.from_)
+            elif sms.from_ == filternum:
+                smsnumlist.append(sms.to)
 
-        return redirect('/log')
+        callnumlist = []
+        for call in client.sms.messages.list():
+            if call.to == filternum:
+                callnumlist.append(call.from_)
+            elif call.from_ == filternum:
+                callnumlist.append(call.to)
+
+        smsnumlist = list(set(smsnumlist))
+        callnumlist = list(set(callnumlist))
+
+        return render_template("log.html", smsnumlist=smsnumlist, callnumlist=callnumlist, numbers=numbers, typeNum=typeNum)
