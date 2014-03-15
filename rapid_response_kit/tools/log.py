@@ -51,7 +51,7 @@ def install(app):
                 smsnumlist.append(sms.to)
 
         callnumlist = []
-        for call in client.call.messages.list():
+        for call in client.calls.list():
             if call.to == filternum:
                 callnumlist.append(call.from_)
             elif call.from_ == filternum:
