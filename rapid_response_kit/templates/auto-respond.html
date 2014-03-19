@@ -10,6 +10,18 @@
             {{ common.twilio_numbers(numbers) }}
         </div>
         <div class="form-group">
+            <label for="voice-engine" class="control-label">Voice:</label>
+            <select id="voice-engine" name="voice-engine" class="form-control">
+                <option value="man" selected>man</option>
+                <option value="woman">woman</option>
+                <option value="alice">alice</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="voice-language" class="control-label">Language:</label>
+            <select id="voice-language" name="voice-language" class="form-control"></select>
+        </div>
+        <div class="form-group">
             <label for="voice-message" class="control-label">Voice Message</label>
             <input type="text" id="voice-message" name="voice-message" class="form-control"  placeholder="Type the default response for incoming calls."/>
         </div>
@@ -21,4 +33,34 @@
             <button type="submit" class="btn btn-primary btn-lg">Set Response</button>
         </div>
     </form>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+    function setLanguages() {
+        var $voiceEngine = $("#voice-engine"),
+        $voiceLanguage = $("#voice-language"),
+        s = '<select id="voice-language" name="voice-language" class="form-control">',
+        selectedEngine = $voiceEngine.val(),
+        selected = "",
+        voices = {{ voices|safe }};
+
+        for(var i = 0, l = voices[selectedEngine].length; i < l; i++) {
+                    selected = (voices[selectedEngine][i].default === true) ? "selected " : "";
+                    s += "<option " + selected + "value=\"" + voices[selectedEngine][i].value + "\">" + voices[selectedEngine][i].name + "</option>";
+        }
+
+        s += "</select>"
+
+        $voiceLanguage.replaceWith(s);
+    }
+
+    setLanguages();
+
+    $(".form").on("change", "#voice-engine", function() {
+        setLanguages();
+    });
+
+</script>
 {% endblock %}
