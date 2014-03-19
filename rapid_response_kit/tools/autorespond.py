@@ -1,6 +1,12 @@
+try:
+    import simplejson as json
+except ImportError:
+    import json
+
 from rapid_response_kit.utils.clients import twilio
 from flask import render_template, request, redirect, flash
 from rapid_response_kit.utils.helpers import echo_twimlet, twilio_numbers
+from rapid_response_kit.utils.voices import VOICES
 
 
 def install(app):
@@ -9,12 +15,16 @@ def install(app):
     @app.route('/auto-respond', methods=['GET'])
     def show_auto_respond():
         numbers = twilio_numbers()
-        return render_template("auto-respond.html", numbers=numbers)
+        voices = json.dumps(VOICES)
+        return render_template("auto-respond.html", numbers=numbers,
+                               voices=voices)
 
     @app.route('/auto-respond', methods=['POST'])
     def do_auto_respond():
         sms_message = request.form.get('sms-message', '')
         voice_message = request.form.get('voice-message', '')
+        voice_engine = request.form.get('voice-engine', 'man')
+        voice_language = request.form.get('voice-language', 'en')
 
         if len(sms_message) == 0 and len(voice_message) == 0:
             flash('Please provide a message', 'danger')
@@ -28,7 +38,11 @@ def install(app):
             sms_url = echo_twimlet(twiml)
 
         if len(voice_message) > 0:
-            twiml = '<Response><Say>{}</Say></Response>'.format(voice_message)
+            twiml = """<Response>
+                        <Say voice="{0}" language="{1}">{2}</Say>
+                    </Response>""".format(voice_engine,
+                                          voice_language,
+                                          voice_message)
             voice_url = echo_twimlet(twiml)
 
         try:
