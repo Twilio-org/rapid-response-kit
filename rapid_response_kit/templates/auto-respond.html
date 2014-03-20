@@ -53,9 +53,10 @@
 
     setLanguages();
 
-    $(".form").on("change", "#voice-engine", function() {
+    var $form = $(".form");
+
+    $form.on("change", "#voice-engine", function() {
         setLanguages();
     });
-
 </script>
 {% endblock %}

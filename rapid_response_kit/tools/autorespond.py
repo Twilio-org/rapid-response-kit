@@ -38,11 +38,9 @@ def install(app):
             sms_url = echo_twimlet(twiml)
 
         if len(voice_message) > 0:
-            twiml = """<Response>
-                        <Say voice="{0}" language="{1}">{2}</Say>
-                    </Response>""".format(voice_engine,
-                                          voice_language,
-                                          voice_message)
+            response = '<Response><Say voice="{0}" language="{1}">{2}</Say></Response>'
+            twiml = response.format(voice_engine, voice_language,
+                                    voice_message)
             voice_url = echo_twimlet(twiml)
 
         try:
