@@ -32,31 +32,19 @@
 
 
 {% block scripts %}
+<!-- rrk-plugins (necessary for display languages) -->
+<script src="/static/js/rrk-plugins.js"></script>
+
 <script>
-    function setLanguages() {
-        var $voiceEngine = $("#voice-engine"),
-        $voiceLanguage = $("#voice-language"),
-        s = '<select id="voice-language" name="voice-language" class="form-control">',
-        selectedEngine = $voiceEngine.val(),
-        selected = "",
-        voices = {{ languages|safe }};
+    $(function(){
+        var $form = $(".form"),
+            voices = {{ languages|safe }};
 
-        for(var i = 0, l = voices[selectedEngine].length; i < l; i++) {
-                    selected = (voices[selectedEngine][i].default === true) ? "selected " : "";
-                    s += "<option " + selected + "value=\"" + voices[selectedEngine][i].value + "\">" + voices[selectedEngine][i].name + "</option>";
-        }
+        rrk.setLanguages(voices);
 
-        s += "</select>"
-
-        $voiceLanguage.replaceWith(s);
-    }
-
-    setLanguages();
-
-    var $form = $(".form");
-
-    $form.on("change", "#voice-engine", function() {
-        setLanguages();
+        $form.on("change", "#voice-engine", function() {
+            rrk.setLanguages(voices);
+        });
     });
 </script>
 {% endblock %}
