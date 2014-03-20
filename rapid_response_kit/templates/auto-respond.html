@@ -10,12 +10,7 @@
             {{ common.twilio_numbers(numbers) }}
         </div>
         <div class="form-group">
-            <label for="voice-engine" class="control-label">Voice:</label>
-            <select id="voice-engine" name="voice-engine" class="form-control">
-                <option value="man" selected>man</option>
-                <option value="woman">woman</option>
-                <option value="alice">alice</option>
-            </select>
+            {{ common.display_voices(voices) }}
         </div>
         <div class="form-group">
             <label for="voice-language" class="control-label">Language:</label>
@@ -44,7 +39,7 @@
         s = '<select id="voice-language" name="voice-language" class="form-control">',
         selectedEngine = $voiceEngine.val(),
         selected = "",
-        voices = {{ voices|safe }};
+        voices = {{ languages|safe }};
 
         for(var i = 0, l = voices[selectedEngine].length; i < l; i++) {
                     selected = (voices[selectedEngine][i].default === true) ? "selected " : "";

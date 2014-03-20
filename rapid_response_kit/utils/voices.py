@@ -1,3 +1,8 @@
+try:
+    import simplejson as json
+except ImportError:
+    import json
+
 BASIC_LANGUAGES = [
     {
         "value": "en",
@@ -139,3 +144,19 @@ VOICES = {
     "woman": BASIC_LANGUAGES,
     "alice": ADVANCED_LANGUAGES
 }
+
+
+def get_languages():
+    """Return the available voices as JSON."""
+    return json.dumps(VOICES)
+
+
+def is_valid_language(voice_engine, voice_language):
+    """Return True if language is valid, False otherwise."""
+    is_valid = False
+    if voice_engine in VOICES:
+        for language in VOICES[voice_engine]:
+            if language.get("value") == voice_language:
+                is_valid = True
+                break
+    return is_valid

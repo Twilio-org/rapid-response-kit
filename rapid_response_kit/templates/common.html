@@ -13,3 +13,18 @@
         </div>
     {% endif %}
 {%- endmacro %}
+
+{% macro display_voices(voices) -%}
+    {% if voices %}
+        <label for="voice-engine" class="control-label">Voice:</label>
+        <select id="voice-engine" name="voice-engine" class="form-control">
+            {% for voice in voices %}
+            <option value="{{ voice }}">{{ voice }}</option>
+            {% endfor %}
+        </select>
+    {% else %}
+        <div class="alert alert-danger">
+            Something bad happened, you have no 'voice' configured.
+        </div>
+    {% endif %}
+{%- endmacro %}
