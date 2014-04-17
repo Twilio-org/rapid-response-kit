@@ -1,7 +1,7 @@
 #The Twilio.org Rapid Response Kit
-The Twilio.org Rapid Response Kit is a collection of open source communications tools any developer or technically inclined user can deploy quickly. Scroll down to INSTALLATION to get started. 
+The Twilio.org Rapid Response Kit is a collection of open source communications tools any developer or technically inclined user can deploy quickly. Scroll down to INSTALLATION to get started.
 
-Twilio.org is an initiative of the communications API platform company Twilio. Our mission is to provide nonprofit organizations with communications technologies to help them reach their goals and further the impact of social good. 
+Twilio.org is an initiative of the communications API platform company Twilio. Our mission is to provide nonprofit organizations with communications technologies to help them reach their goals and further the impact of social good.
 
 If you are a qualified nonprofit, apply at Twilio.org/apply. Find other open source tools and resources at twilio.org/resources
 
@@ -17,7 +17,7 @@ Please make sure that before you begin you meet the minimum requirements:
 - Python 2.7
 - virtualenv
 - pip
- 
+
 ## Tools available out-of-the-box
 
 Twilio.org Rapid Response Kit comes with several tools already installed.  When you
@@ -30,7 +30,7 @@ Use this tool to set up an recorded auto-responder to inbound voice calls or tex
 Useful for setting up and updating information lines.
 
 ###Broadcast
-A simple messaging broadcast app. Send a one-way communications blast to a defined group of contacts. 
+A simple messaging broadcast app. Send a one-way communications blast to a defined group of contacts.
 
 Useful for broadcasting information to volunteers.
 
@@ -50,7 +50,7 @@ A tool that allows you to dial one number, which then will sequentially dial dow
 Useful for setting up ad-hoc response teams and rudimentary call centers.
 
 ###Simple Help Line
-Use this interactive voice response app to set up simple options for callers to press a number for information, or to connect to a pre-determined agent. Each key on the dialpad can be configured to either dial a Phone Number or provide 
+Use this interactive voice response app to set up simple options for callers to press a number for information, or to connect to a pre-determined agent. Each key on the dialpad can be configured to either dial a Phone Number or provide
 information.
 
 Useful for setting up simple phone menus a la "Press 1 to call the Site Manager,
@@ -70,6 +70,13 @@ With this group conference call tool, an organizer can dial one number which the
 
 Useful for quickly gathering key stakeholders together for conference calls
 without requiring everyone to dial into a predefined number.
+
+###Phone Log
+
+View list of numbers that have contacted your phone number.
+
+Useful to copy/paste all numbers that have contacted you into other functions.
+
 
 ## Installation
 
@@ -147,7 +154,7 @@ from nginx.
       
 
 ## Meta
-No warranty expressed or implied. Software is as is. 
+No warranty expressed or implied. Software is as is.
 MIT License
 Powered by Twilio .org
 

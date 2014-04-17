@@ -10,6 +10,7 @@ from rapid_response_kit.tools import ringdown
 from rapid_response_kit.tools import simplehelp
 from rapid_response_kit.tools import survey
 from rapid_response_kit.tools import town_hall
+from rapid_response_kit.tools import log
 
 app = Flask(__name__)
 app.config.from_object('rapid_response_kit.utils.config')
@@ -24,6 +25,7 @@ ringdown.install(app)
 simplehelp.install(app)
 survey.install(app)
 town_hall.install(app)
+log.install(app)
 
 @app.route('/')
 def home():
