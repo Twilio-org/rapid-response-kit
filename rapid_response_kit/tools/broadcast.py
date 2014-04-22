@@ -2,7 +2,7 @@ from rapid_response_kit.utils.clients import twilio
 
 from flask import render_template, request, flash, redirect
 from rapid_response_kit.utils.helpers import parse_numbers, echo_twimlet, twilio_numbers
-from rapid_response_kit.utils.voices import get_languages, is_valid_language, VOICES
+from rapid_response_kit.utils.voices import is_valid_language, VOICES
 
 
 def install(app):
@@ -12,9 +12,8 @@ def install(app):
     def show_broadcast():
         numbers = twilio_numbers('phone_number')
         voices = VOICES.keys()
-        languages = get_languages()
         return render_template("broadcast.html", numbers=numbers,
-                               voices=voices, languages=languages)
+                               voices=voices)
 
 
     @app.route('/broadcast', methods=['POST'])

@@ -1,7 +1,4 @@
-try:
-    import simplejson as json
-except ImportError:
-    import json
+"""List of available voices and languages."""
 
 BASIC_LANGUAGES = [
     {
@@ -144,11 +141,6 @@ VOICES = {
     "woman": BASIC_LANGUAGES,
     "alice": ADVANCED_LANGUAGES
 }
-
-
-def get_languages():
-    """Return the available voices as JSON."""
-    return json.dumps(VOICES)
 
 
 def is_valid_language(voice_engine, voice_language):

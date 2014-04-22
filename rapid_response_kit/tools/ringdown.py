@@ -3,7 +3,7 @@ from urllib import urlencode
 from rapid_response_kit.utils.clients import twilio
 from flask import render_template, request, redirect, flash
 from rapid_response_kit.utils.helpers import parse_numbers, echo_twimlet, twilio_numbers
-from rapid_response_kit.utils.voices import get_languages, is_valid_language, VOICES
+from rapid_response_kit.utils.voices import is_valid_language, VOICES
 from twilio.twiml import Response
 
 
@@ -14,9 +14,8 @@ def install(app):
     def show_ringdown():
         numbers = twilio_numbers()
         voices = VOICES.keys()
-        languages = get_languages()
         return render_template("ringdown.html", numbers=numbers,
-                               voices=voices, languages=languages)
+                               voices=voices)
 
 
     @app.route('/ringdown', methods=['POST'])

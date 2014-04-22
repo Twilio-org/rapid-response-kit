@@ -34,17 +34,4 @@
 {% block scripts %}
 <!-- rrk-plugins (necessary for display languages) -->
 <script src="/static/js/rrk-plugins.js"></script>
-
-<script>
-    $(function(){
-        var $form = $(".form"),
-            voices = {{ languages|safe }};
-
-        rrk.setLanguages(voices);
-
-        $form.on("change", "#voice-engine", function() {
-            rrk.setLanguages(voices);
-        });
-    });
-</script>
 {% endblock %}

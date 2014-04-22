@@ -40,30 +40,4 @@
 {% block scripts %}
 <!-- rrk-plugins (necessary for display languages) -->
 <script src="/static/js/rrk-plugins.js"></script>
-
-<script>
-    $(function(){
-        var $form = $(".form"),
-            $say = $("#voice, #language"),
-            voices = {{ languages|safe }};
-
-        $say.hide();
-
-        $form.on("change", "#method", function() {
-            var method = $(this).val();
-
-            if(method === "voice") {
-                $say.show();
-                rrk.setLanguages(voices);
-            }
-            else {
-                $say.hide();
-            }
-        });
-
-        $form.on("change", "#voice-engine", function() {
-            rrk.setLanguages(voices);
-        });
-    });
-</script>
 {% endblock %}
