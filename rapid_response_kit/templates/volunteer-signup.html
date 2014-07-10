@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+{% import 'common.html' as common %}
+{% set title = 'Volunteer Signup' %}
+
+{% block content %}
+    <h1>Volunteer Singup</h1>
+    <p>Send a message to a group of numbers to see if they are interested in volunteering and generate a spreadsheet of their responses.</p>
+    <form class="form" method="POST">
+        <div class="form-group">
+            {{ common.twilio_numbers(numbers) }}
+        </div>
+        <div class="form-group">
+            <label for="message" class="control-label">Message</label>
+            <textarea id="message" name="message" class="form-control" rows="6" placeholder="Type the message to send."></textarea>
+        </div>
+        <div class="form-group">
+            <label for="numbers" class="control-label">Phone Numbers</label>
+            <textarea id="numbers" name="numbers" class="form-control" rows="8" placeholder="Type or paste phone numbers on different lines."></textarea>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+        </div>
+    </form>
+{% endblock %}
