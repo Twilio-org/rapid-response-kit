@@ -71,6 +71,12 @@ With this group conference call tool, an organizer can dial one number which the
 Useful for quickly gathering key stakeholders together for conference calls
 without requiring everyone to dial into a predefined number.
 
+###Volunteer Signup
+**Volunteer Signup requires integration with Google Drive API to record results**
+This app texts people to sign up for an activity - their responses will be stored in the Google Drive account of your choosing.
+
+Useful for signing up volunteers and determining who is available.
+
 ## Installation
 
 To install Twilio Rapid Response Kit to your development environment for testing
