@@ -48,3 +48,16 @@ def install(app):
                 flash("Failed to send to {}".format(number), 'danger')
 
         return redirect('/volunteer-signup')
+
+
+    @app.route('/volunteer-signup-reply', method=['POST'])
+    def add_volunteer():
+
+        from_number = request.values.get('From')
+        message = request.values.get('Mesage')
+
+        # Parse message and add to gdoc
+     
+        return str(resp)
+
+
