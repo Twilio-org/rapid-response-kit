@@ -14,7 +14,7 @@ def install(app):
 
     @app.route('/volunteer-signup', methods=['GET'])
     def show_volunteer_signup():
-        numbers = twilio_numbers('phone_number')
+        numbers = twilio_numbers()
         return render_template("volunteer-signup.html", numbers=numbers)
 
 
@@ -23,6 +23,26 @@ def install(app):
         numbers = parse_numbers(request.form.get('numbers', ''))
         twiml = "<Response><Say>{}</Say></Response>"
         url = echo_twimlet(twiml.format(request.form.get('message', '')))
+
+        # Update phone number url for replys
+        url = "{}/handle?{}".format(request.base_url, request.query_string)
+        twiml = '<Response><Say>System is down for maintenance</Say></Response>'
+        fallback_url = echo_twimlet(twiml)
+
+        try:
+            client = twilio()
+            client.phone_numbers.update(request.form['twilio_number'],
+                                        friendly_name='[RRKit] Volunteer Signup',
+                                        sms_url=url,
+                                        sms_method='POST',
+                                        sms_fallback_url=fallback_url,
+                                        sms_fallback_method='GET')
+
+            flash('Help menu configured', 'success')
+        except Exception as e:
+            print(e)
+            flash('Error configuring phone number', 'danger')
+
 
         # Creates local webserver and auto handles authentication
         gauth = GoogleAuth()
@@ -50,14 +70,15 @@ def install(app):
         return redirect('/volunteer-signup')
 
 
-    @app.route('/volunteer-signup-reply', method=['POST'])
+    @app.route('/volunteer-signup/handle', methods=['POST'])
     def add_volunteer():
+        response = Response()
 
         from_number = request.values.get('From')
         message = request.values.get('Mesage')
 
         # Parse message and add to gdoc
      
-        return str(resp)
+        return str(response)
 
 
