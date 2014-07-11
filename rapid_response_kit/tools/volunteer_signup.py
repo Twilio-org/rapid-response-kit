@@ -66,7 +66,6 @@ def install(app):
                                         sms_fallback_url=fallback_url,
                                         sms_fallback_method='GET')
 
-            flash('Help menu configured', 'success')
         except Exception as e:
             print(e)
             flash('Error configuring phone number', 'danger')
