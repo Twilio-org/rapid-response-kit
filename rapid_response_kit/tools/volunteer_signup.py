@@ -60,15 +60,17 @@ def install(app):
         file1.Upload()
 
         client = twilio()
+        # Since the value of the form is a PN sid need to fetch the number
+        phoneNumber = client.phone_numbers.get(request.form['twilio_number'])
 
         for number in numbers:
             try:
                 client.messages.create(
                     body=request.form['message'],
                     to=number,
-                    from_=request.form['twilio_number']
+                    from_= phoneNumber.phone_number
                 )
-                flash("Sent {} the message. Here is the link to the spreadsheet ...".format(number), 'success')
+                flash("Sent {} the message.".format(number), 'success')
             except Exception:
                 flash("Failed to send to {}".format(number), 'danger')
 
