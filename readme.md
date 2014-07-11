@@ -72,12 +72,12 @@ Useful for quickly gathering key stakeholders together for conference calls
 without requiring everyone to dial into a predefined number.
 
 ###Volunteer Signup
-**Volunteer Signup requires integration with Google Drive API to record results**
-This app texts people to sign up for an activity - their responses will be stored in the Google Drive account of your choosing.
+**Volunteer Signup requires Google credentials to record results**
+Broadcast an sms message to a group of numbers with a volunteer opportunity and record responses to a Google spreadsheet.
 
 Useful for signing up volunteers and determining who is available.
 
-To get the required client_secrets.json file, follow the [instructions provided by PyDrive] (http://pythonhosted.org/PyDrive/quickstart.html).
+Note : If your Google account has 2-factor authentication enabled, you may need to [generate an application specific password] (https://support.google.com/accounts/answer/185833?hl=en)
 
 ## Installation
 

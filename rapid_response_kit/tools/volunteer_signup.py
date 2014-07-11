@@ -109,28 +109,24 @@ def install(app):
         response = Response()
         from_number = request.values.get('From')
         body = request.values.get('Body')
+
         client = twilio()
         global phone_number
+        text_body = ""
         try:
             (f_name, l_name, response) = body.strip().split(' ')
             insert_row()
-            client.messages.create(
-                body="Thanks!  Your response has been recorded.",
-                to=from_number,
-                from_= phone_number
-            )
+            text_body = "Thanks!  Your response has been recorded."
         except ValueError:
-            client.messages.create(
-                body="Please enter a valid format.",
-                to=from_number,
-                from_= phone_number
-            )
+            text_body = "Please enter a valid format."
         except Exception:
-            client.messages.create(
-                body="There was a problem recording your response.  Please try again.",
-                to=from_number,
-                from_= phone_number
-            )
+            text_body = "There was a problem recording your response.  Please try again."
+
+        client.messages.create(
+            body=text_body,
+            to=from_number,
+            from_= phone_number
+        )
 
         return str(response)
 
