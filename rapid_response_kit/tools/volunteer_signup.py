@@ -20,6 +20,7 @@ def install(app):
 
     spreadsheet_key = ''
     google_client = None
+    phone_number = ''
 
     @app.route('/volunteer-signup', methods=['GET'])
     def show_volunteer_signup():
@@ -29,6 +30,26 @@ def install(app):
 
     @app.route('/volunteer-signup', methods=['POST'])
     def do_volunteer_signup():
+
+        def create_spreadsheet():
+            global google_client
+            global spreadsheet_key
+            (user, password) = get_google_creds(app.config)
+            google_client = gdata.docs.client.DocsClient(source='VolunteerSignup')
+            google_client.client_login(user, password, source='VolunteerSignup', service='writely')
+            document = gdata.docs.data.Resource(type='spreadsheet', title=request.form.get('file-name', 'signup'))
+            document = google_client.CreateResource(document)
+            spreadsheet_key = document.GetId().split("%3A")[1]
+
+        def update_column_names():
+            global google_client
+            global spreadsheet_key
+            google_client = gdata.spreadsheet.service.SpreadsheetsService()
+            google_client.ClientLogin(user, password)
+            google_client.UpdateCell(1, 1, 'name', spreadsheet_key)
+            google_client.UpdateCell(1, 2, 'phone', spreadsheet_key)
+            google_client.UpdateCell(1, 3, 'response', spreadsheet_key)
+
         numbers = parse_numbers(request.form.get('numbers', ''))
 
         # Update phone number url for replys
@@ -50,26 +71,14 @@ def install(app):
             print(e)
             flash('Error configuring phone number', 'danger')
 
-        # create google spreadsheet
-        global google_client
-        (user, password) = get_google_creds(app.config)
-        google_client = gdata.docs.client.DocsClient(source='VolunteerSignup')
-        google_client.client_login(user, password, source='VolunteerSignup', service='writely')
-        document = gdata.docs.data.Resource(type='spreadsheet', title=request.form.get('file-name', 'signup'))
-        document = google_client.CreateResource(document)
-        global spreadsheet_key
-        spreadsheet_key = document.GetId().split("%3A")[1]
-
-        # update column headers
-        google_client = gdata.spreadsheet.service.SpreadsheetsService()
-        google_client.ClientLogin(user, password)
-        google_client.UpdateCell(1, 1, 'name', spreadsheet_key)
-        google_client.UpdateCell(1, 2, 'phone', spreadsheet_key)
-        google_client.UpdateCell(1, 3, 'response', spreadsheet_key)
+        create_spreadsheet()
+        update_column_names()
 
         client = twilio()
         # Since the value of the form is a PN sid need to fetch the number
+        global phone_number
         phoneNumber = client.phone_numbers.get(request.form['twilio_number'])
+        phone_number = phoneNumber.phone_number
 
         for number in numbers:
             try:
@@ -87,21 +96,42 @@ def install(app):
 
     @app.route('/volunteer-signup/handle', methods=['POST'])
     def add_volunteer():
-        global drive
-        global file_name
+
+        def insert_row():
+            global google_client
+            global spreadsheet_key
+            row = {}
+            row['name'] = f_name + ' ' + l_name
+            row['phone'] = from_number
+            row['response'] = response.upper()
+            google_client.InsertRow(row, spreadsheet_key)
+
         response = Response()
         from_number = request.values.get('From')
         body = request.values.get('Body')
+        client = twilio()
+        global phone_number
+        try:
+            (f_name, l_name, response) = body.strip().split(' ')
+            insert_row()
+            client.messages.create(
+                body="Thanks!  Your response has been recorded.",
+                to=from_number,
+                from_= phone_number
+            )
+        except ValueError:
+            client.messages.create(
+                body="Please enter a valid format.",
+                to=from_number,
+                from_= phone_number
+            )
+        except Exception:
+            client.messages.create(
+                body="There was a problem recording your response.  Please try again.",
+                to=from_number,
+                from_= phone_number
+            )
 
-        row = {}
-        (f_name, l_name, response) = body.strip().split(' ')
-        row['name'] = f_name + ' ' + l_name
-        row['phone'] = from_number
-        row['response'] = response.upper()
-        global google_client
-        global spreadsheet_key
-        google_client.InsertRow(row, spreadsheet_key)
-     
         return str(response)
 
 
