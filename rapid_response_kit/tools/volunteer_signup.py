@@ -1,3 +1,4 @@
+import os.path
 from flask import render_template, request, flash, redirect
 from clint.textui import colored
 from pydrive.auth import GoogleAuth
@@ -7,10 +8,12 @@ from rapid_response_kit.utils.helpers import parse_numbers, echo_twimlet, twilio
 
 def install(app):
     app.config.apps.register('volunteer-signup', 'Volunteer Signup', '/volunteer-signup')
-    print colored.red(
-        'Volunteer Signup requires Google Drive API, please add client_secrets.json to your working directory')
+
+    if not os.path.isfile('client_secrets.json'):
+        print colored.red('Volunteer Signup requires Google Drive API, please add client_secrets.json to your working directory')
 
     file_name = 'signup.csv'
+    drive = None
 
     @app.route('/volunteer-signup', methods=['GET'])
     def show_volunteer_signup():
@@ -48,6 +51,8 @@ def install(app):
         gauth = GoogleAuth()
         gauth.LocalWebserverAuth()
         drive = GoogleDrive(gauth)
+
+        file_name = request.form.get('file-name')
 
         # creates and uploads file
         file1 = drive.CreateFile({'title': file_name, 'mimeType':'text/csv'})

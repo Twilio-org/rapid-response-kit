@@ -77,6 +77,8 @@ This app texts people to sign up for an activity - their responses will be store
 
 Useful for signing up volunteers and determining who is available.
 
+To get the required client_secrets.json file, follow the [instructions provided by PyDrive] (http://pythonhosted.org/PyDrive/quickstart.html).
+
 ## Installation
 
 To install Twilio Rapid Response Kit to your development environment for testing
