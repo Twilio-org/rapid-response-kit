@@ -39,3 +39,13 @@ class VolunteerSignupTestCase(KitTestCase):
             friendly_name='[RRKit] Volunteer Signup',
             sms_method='POST',
             sms_fallback_url=expected_fallback_url)
+
+
+    def test_handle(self):
+        self.app.post('/volunteer-signup/handle', data={
+                                          'From': '4158675309',
+                                          'Body': 'Reply to volunteer'})
+
+        self.patchio.messages.create.assert_called(
+            to='+14158675309'
+        )
