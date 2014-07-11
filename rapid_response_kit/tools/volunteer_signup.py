@@ -25,8 +25,6 @@ def install(app):
     @app.route('/volunteer-signup', methods=['POST'])
     def do_volunteer_signup():
         numbers = parse_numbers(request.form.get('numbers', ''))
-        twiml = "<Response><Say>{}</Say></Response>"
-        url = echo_twimlet(twiml.format(request.form.get('message', '')))
 
         # Update phone number url for replys
         url = "{}/handle?{}".format(request.base_url, request.query_string)
