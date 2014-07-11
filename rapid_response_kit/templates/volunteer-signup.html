@@ -3,8 +3,8 @@
 {% set title = 'Volunteer Signup' %}
 
 {% block content %}
-    <h1>Volunteer Singup</h1>
-    <p>Send a message to a group of numbers to see if they are interested in volunteering and generate a spreadsheet of their responses.</p>
+    <h1>Volunteer Signup</h1>
+    <p>Broadcast an sms message to a group of numbers with a volunteer opportunity and record responses to a spreadsheet.</p>
     <form class="form" method="POST">
         <div class="form-group">
             {{ common.twilio_numbers(numbers) }}
