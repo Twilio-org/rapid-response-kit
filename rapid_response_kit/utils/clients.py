@@ -23,3 +23,11 @@ def parse_connect(config=None):
         return True
     except:
         return False
+
+def get_google_creds(config=None):
+    if config is None:
+        config = app.config
+
+    user = config.get('GOOGLE_ACCOUNT_USER', None)
+    password = config.get('GOOGLE_ACCOUNT_PASS', None)
+    return user, password

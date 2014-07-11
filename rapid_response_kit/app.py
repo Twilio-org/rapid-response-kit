@@ -13,7 +13,7 @@ from rapid_response_kit.tools import town_hall
 from rapid_response_kit.tools import volunteer_signup 
 
 app = Flask(__name__)
-app.config.from_object('rapid_response_kit.utils.config')
+app.config.from_pyfile('utils/config.py')
 
 app.config.apps = Registry()
 

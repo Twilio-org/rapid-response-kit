@@ -1,20 +1,25 @@
 import os.path
 from flask import render_template, request, flash, redirect
 from clint.textui import colored
-from pydrive.auth import GoogleAuth
-from pydrive.drive import GoogleDrive
-from rapid_response_kit.utils.clients import twilio
+import gdata.docs.data
+import gdata.docs.client
+import gdata.spreadsheet.service
+
+from rapid_response_kit.utils.clients import twilio, get_google_creds
 from rapid_response_kit.utils.helpers import parse_numbers, echo_twimlet, twilio_numbers
 from twilio.twiml import Response
 
 def install(app):
+    (user, password) = get_google_creds(app.config)
+    if user == None or password == None:
+        print colored.red(
+            'Volunteer Signup requires Google credentials, please add GOOGLE_ACCOUNT_USER and GOOGLE_ACCOUNT_PASS to your config.py')
+        return
+
     app.config.apps.register('volunteer-signup', 'Volunteer Signup', '/volunteer-signup')
 
-    if not os.path.isfile('client_secrets.json'):
-        print colored.red('Volunteer Signup requires Google Drive API, please add client_secrets.json to your working directory')
-
-    file_name = 'signup.csv'
-    drive = None
+    spreadsheet_key = ''
+    google_client = None
 
     @app.route('/volunteer-signup', methods=['GET'])
     def show_volunteer_signup():
@@ -47,19 +52,22 @@ def install(app):
             print(e)
             flash('Error configuring phone number', 'danger')
 
+        # create google spreadsheet
+        global google_client
+        (user, password) = get_google_creds(app.config)
+        google_client = gdata.docs.client.DocsClient(source='VolunteerSignup')
+        google_client.client_login(user, password, source='VolunteerSignup', service='writely')
+        document = gdata.docs.data.Resource(type='spreadsheet', title=request.form.get('file-name', 'signup'))
+        document = google_client.CreateResource(document)
+        global spreadsheet_key
+        spreadsheet_key = document.GetId().split("%3A")[1]
 
-        # Creates local webserver and auto handles authentication
-        gauth = GoogleAuth()
-        gauth.LocalWebserverAuth()
-        global drive
-        drive = GoogleDrive(gauth)
-        global file_name
-        file_name = request.form.get('file-name')
-
-        # creates and uploads file
-        file1 = drive.CreateFile({'title': file_name, 'mimeType':'text/csv'})
-        file1.SetContentString('Name, Phone Number, Response')
-        file1.Upload()
+        # update column headers
+        google_client = gdata.spreadsheet.service.SpreadsheetsService()
+        google_client.ClientLogin(user, password)
+        google_client.UpdateCell(1, 1, 'name', spreadsheet_key)
+        google_client.UpdateCell(1, 2, 'phone', spreadsheet_key)
+        google_client.UpdateCell(1, 3, 'response', spreadsheet_key)
 
         client = twilio()
         # Since the value of the form is a PN sid need to fetch the number
@@ -87,21 +95,14 @@ def install(app):
         from_number = request.values.get('From')
         body = request.values.get('Body')
 
-        # create csv string from text body
-        (f_name, l_name, response) = body.split(' ')
-        new_line_arr = [f_name + ' ' + l_name, from_number, response.upper()]
-        new_line = ','.join(new_line_arr)
-
-        # find file, and update with new line
-        my_file = None
-        file_list = drive.ListFile({'q': "'root' in parents and trashed=false"}).GetList()
-        for file1 in file_list:
-            if file1['title'] == file_name:
-                my_file = file1
-
-        if my_file != None:
-            my_file.SetContentString(my_file.GetContentString() + "\r\n" + new_line)
-            my_file.Upload()
+        row = {}
+        (f_name, l_name, response) = body.strip().split(' ')
+        row['name'] = f_name + ' ' + l_name
+        row['phone'] = from_number
+        row['response'] = response.upper()
+        global google_client
+        global spreadsheet_key
+        google_client.InsertRow(row, spreadsheet_key)
      
         return str(response)
 
