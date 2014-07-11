@@ -5,6 +5,7 @@ from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 from rapid_response_kit.utils.clients import twilio
 from rapid_response_kit.utils.helpers import parse_numbers, echo_twimlet, twilio_numbers
+from twilio.twiml import Response
 
 def install(app):
     app.config.apps.register('volunteer-signup', 'Volunteer Signup', '/volunteer-signup')
@@ -50,8 +51,9 @@ def install(app):
         # Creates local webserver and auto handles authentication
         gauth = GoogleAuth()
         gauth.LocalWebserverAuth()
+        global drive
         drive = GoogleDrive(gauth)
-
+        global file_name
         file_name = request.form.get('file-name')
 
         # creates and uploads file
@@ -79,12 +81,27 @@ def install(app):
 
     @app.route('/volunteer-signup/handle', methods=['POST'])
     def add_volunteer():
+        global drive
+        global file_name
         response = Response()
-
         from_number = request.values.get('From')
-        message = request.values.get('Mesage')
+        body = request.values.get('Body')
 
-        # Parse message and add to gdoc
+        # create csv string from text body
+        (f_name, l_name, response) = body.split(' ')
+        new_line_arr = [f_name + ' ' + l_name, from_number, response.upper()]
+        new_line = ','.join(new_line_arr)
+
+        # find file, and update with new line
+        my_file = None
+        file_list = drive.ListFile({'q': "'root' in parents and trashed=false"}).GetList()
+        for file1 in file_list:
+            if file1['title'] == file_name:
+                my_file = file1
+
+        if my_file != None:
+            my_file.SetContentString(my_file.GetContentString() + "\r\n" + new_line)
+            my_file.Upload()
      
         return str(response)
 
