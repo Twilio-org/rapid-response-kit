@@ -71,6 +71,14 @@ With this group conference call tool, an organizer can dial one number which the
 Useful for quickly gathering key stakeholders together for conference calls
 without requiring everyone to dial into a predefined number.
 
+###Volunteer Signup
+**Volunteer Signup requires Google credentials to record results.**
+Broadcast an sms message to a group of numbers with a volunteer opportunity and record responses to a Google spreadsheet.
+
+Useful for quickly signing up volunteers and easily determining who is available to show up.
+
+Note : If your Google account has 2-factor authentication enabled, you may need to [generate an application specific password] (https://support.google.com/accounts/answer/185833?hl=en).
+
 ## Installation
 
 To install Twilio Rapid Response Kit to your development environment for testing
