@@ -32,9 +32,6 @@ def install(app):
     def do_volunteer_signup():
 
         def create_spreadsheet():
-            global google_client
-            global spreadsheet_key
-            (user, password) = get_google_creds(app.config)
             google_client = gdata.docs.client.DocsClient(source='VolunteerSignup')
             google_client.client_login(user, password, source='VolunteerSignup', service='writely')
             document = gdata.docs.data.Resource(type='spreadsheet', title=request.form.get('file-name', 'signup'))
@@ -42,8 +39,6 @@ def install(app):
             spreadsheet_key = document.GetId().split("%3A")[1]
 
         def update_column_names():
-            global google_client
-            global spreadsheet_key
             google_client = gdata.spreadsheet.service.SpreadsheetsService()
             google_client.ClientLogin(user, password)
             google_client.UpdateCell(1, 1, 'name', spreadsheet_key)
@@ -97,8 +92,6 @@ def install(app):
     def add_volunteer():
 
         def insert_row():
-            global google_client
-            global spreadsheet_key
             row = {}
             row['name'] = f_name + ' ' + l_name
             row['phone'] = from_number
@@ -110,7 +103,6 @@ def install(app):
         body = request.values.get('Body')
 
         client = twilio()
-        global phone_number
         text_body = ""
         try:
             (f_name, l_name, response) = body.strip().split(' ')
