@@ -128,7 +128,17 @@ installation guide. The flask server is not meant for production deployment, we
 suggest running the Twilio.org Rapid Response Kit via uwsgi and forwarding to it
 from nginx.
 
-### Deploying on Heroku
+### Heroku
+
+#### Running locally
+
+1. `pip install gunicorn`
+2. Create local_config.py with your environment variables and add to .gitignore
+3. run `foreman start`
+
+#### Deploying on Heroku
+
+Click the button below to automatically set up the Rapid Response Kit in an app running on your Heroku account. You will be prompted to enter your Twilio credentials during setup.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
