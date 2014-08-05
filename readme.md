@@ -142,6 +142,8 @@ Click the button below to automatically set up the Rapid Response Kit in an app 
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
+Alternatively, you can manually create a Heroku app and use Git to push and deploy.
+
 ## Meta
 No warranty expressed or implied. Software is as is. 
 MIT License
