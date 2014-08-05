@@ -129,6 +129,9 @@ suggest running the Twilio.org Rapid Response Kit via uwsgi and forwarding to it
 from nginx.
 
 ### Deploying on Heroku
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
 1. `pip install gunicorn`
 2. Create Procfile 
 <br>
