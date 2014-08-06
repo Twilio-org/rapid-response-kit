@@ -9,7 +9,7 @@ If you are a qualified nonprofit, apply at Twilio.org/apply. Find other open sou
 
 Twilio Rapid Response Kit is a built on `python` and the `flask microframework`.
 It uses `virtualenv` to sandbox the Twilio Rapid Response Kit from the rest of
-your development or server environment.  Twilio Rapid Response Kit uses `pip` to
+your development or server environment. Twilio Rapid Response Kit uses `pip` to
 resolve and install dependencies.
 
 Please make sure that before you begin you meet the minimum requirements:
@@ -20,9 +20,9 @@ Please make sure that before you begin you meet the minimum requirements:
  
 ## Tools available out-of-the-box
 
-Twilio.org Rapid Response Kit comes with several tools already installed.  When you
+Twilio.org Rapid Response Kit comes with several tools already installed. When you
 start up the Twilio.org Rapid Response Kit it will report what tools are available
-and where.  Below is a brief description of every tool provided.
+and where. Below is a brief description of every tool provided.
 
 ###Auto-Respond
 Use this tool to set up an recorded auto-responder to inbound voice calls or text messages. Respond to voice calls with a spoken message or to an incoming SMS message with a response SMS.
@@ -35,8 +35,8 @@ A simple messaging broadcast app. Send a one-way communications blast to a defin
 Useful for broadcasting information to volunteers.
 
 ###Conference Line
-Configures a Twilio Number to behave like a conference line.  Anyone who calls
-into the conference line will be dropped into a conference room.  Supports
+Configures a Twilio Number to behave like a conference line. Anyone who calls
+into the conference line will be dropped into a conference room. Supports
 whitelisting numbers and multiple conference rooms.
 
 ###Forwarder
@@ -59,10 +59,10 @@ Press 2 to hear shelter hours, etc"
 ###Survey
 **Survey requires integration with Parse to record results**.
 An SMS-powered survey app to send out questions to a specified list of numbers and gather responses. You define the response parameters. Survey is similar to Broadcast but instead of broadcasting an informational
-message, it broadcasts a yes / no question.  Responses will be recorded in Parse
+message, it broadcasts a yes / no question. Responses will be recorded in Parse
 for analysis and action.
 
-Useful for quick status and safety checks.  Ex: "Can you help at 12th Street
+Useful for quick status and safety checks. Ex: "Can you help at 12th Street
 Response Center?"
 
 ###Town Hall
@@ -99,7 +99,7 @@ folder.  This will start the application running on
 ## Stateless Design
 
 You may have noticed that we haven't discussed what database Twilio.org Rapid
-Response Kit uses yet.  This is because Twilio.org Rapid Response Kit is comprised
+Response Kit uses yet. This is because Twilio.org Rapid Response Kit is comprised
 of stateless tools that do not require a database to maintain the application
 state.
 
@@ -117,42 +117,32 @@ This kit, and all other repos in the Twilio.org Github are open source. If youâ€
 ## Deploying
 
 Once you have evaluated Twilio.org Rapid Response Kit and are happy with its
-functionality, it's time to deploy it.  For Twilio.org Rapid Response Kit to
+functionality, it's time to deploy it. For Twilio.org Rapid Response Kit to
 function correctly it must be able to communicate with Twilio and vice-versa, so
 it must be on a publicly accessible server.
 
 ### Your own hardware
 
 To deploy Twilio.org Rapid Response Kit on your own server you can follow the same
-installation guide.  The flask server is not meant for production deployment, we
+installation guide. The flask server is not meant for production deployment, we
 suggest running the Twilio.org Rapid Response Kit via uwsgi and forwarding to it
 from nginx.
 
-### Deploying on Heroku
-1. `pip install gunicorn`
-2. Create Procfile 
-<br>
-   `web: gunicorn rapid_response_kit.app:app`
-3. Edit /rapid_response_kit/utils/config.py
-   ```python
-    SECRET_KEY = ''
-    TWILIO_ACCOUNT_SID = ''
-    TWILIO_AUTH_TOKEN = ''
+### Heroku
 
-    try: 
-       import local_config
-    except:
-      import os
-      SECRET_KEY = os.environ['SECRET_KEY']
-      TWILIO_ACCOUNT_SID = os.environ['TWILIO_ACCOUNT_SID']
-      TWILIO_AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
-      ```
-4. Create local_config.py with your environment variables and add to .gitignore
-5. Remove /rapid_response_kit/utils/config.py from .gitignore
-6. Add to requirements.txt
-<br>
-   `gunicorn==18.0`
-      
+#### Running locally
+
+1. `pip install gunicorn`
+2. Create local_config.py with your environment variables and add to .gitignore
+3. run `foreman start`
+
+#### Deploying on Heroku
+
+Click the button below to automatically set up the Rapid Response Kit in an app running on your Heroku account. You will be prompted to enter your Twilio credentials during setup.
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
+Alternatively, you can manually create a Heroku app and use Git to push and deploy.
 
 ## Meta
 No warranty expressed or implied. Software is as is. 
