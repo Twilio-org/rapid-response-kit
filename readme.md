@@ -1,4 +1,5 @@
 #The Twilio.org Rapid Response Kit
+
 The Twilio.org Rapid Response Kit is a collection of open source communications tools any developer or technically inclined user can deploy quickly. Scroll down to INSTALLATION to get started. 
 
 Twilio.org is an initiative of the communications API platform company Twilio. Our mission is to provide nonprofit organizations with communications technologies to help them reach their goals and further the impact of social good. 
@@ -24,39 +25,39 @@ Twilio.org Rapid Response Kit comes with several tools already installed. When y
 start up the Twilio.org Rapid Response Kit it will report what tools are available
 and where. Below is a brief description of every tool provided.
 
-###Auto-Respond
+### Auto-Respond
 Use this tool to set up an recorded auto-responder to inbound voice calls or text messages. Respond to voice calls with a spoken message or to an incoming SMS message with a response SMS.
 
 Useful for setting up and updating information lines.
 
-###Broadcast
+### Broadcast
 A simple messaging broadcast app. Send a one-way communications blast to a defined group of contacts. 
 
 Useful for broadcasting information to volunteers.
 
-###Conference Line
+### Conference Line
 Configures a Twilio Number to behave like a conference line. Anyone who calls
 into the conference line will be dropped into a conference room. Supports
 whitelisting numbers and multiple conference rooms.
 
-###Forwarder
+### Forwarder
 Forwards all voice traffic from a Twilio Number to a given Phone Number.
 
 Useful for temporary public phone numbers.
 
-###Ringdown
+### Ringdown
 A tool that allows you to dial one number, which then will sequentially dial down a list of prioritized contacts until one of those contacts answer. You are able to set up contact lists ahead of time and if no one answers an optional message will be spoken.
 
 Useful for setting up ad-hoc response teams and rudimentary call centers.
 
-###Simple Help Line
+### Simple Help Line
 Use this interactive voice response app to set up simple options for callers to press a number for information, or to connect to a pre-determined agent. Each key on the dialpad can be configured to either dial a Phone Number or provide 
 information.
 
 Useful for setting up simple phone menus a la "Press 1 to call the Site Manager,
 Press 2 to hear shelter hours, etc"
 
-###Survey
+### Survey
 **Survey requires integration with Parse to record results**.
 An SMS-powered survey app to send out questions to a specified list of numbers and gather responses. You define the response parameters. Survey is similar to Broadcast but instead of broadcasting an informational
 message, it broadcasts a yes / no question. Responses will be recorded in Parse
@@ -65,13 +66,13 @@ for analysis and action.
 Useful for quick status and safety checks. Ex: "Can you help at 12th Street
 Response Center?"
 
-###Town Hall
+### Town Hall
 With this group conference call tool, an organizer can dial one number which then dials a list of predefined contacts. Individuals who answer the call are dropped into the same conference. This can handle up to 40 people in one conference call.
 
 Useful for quickly gathering key stakeholders together for conference calls
 without requiring everyone to dial into a predefined number.
 
-###Volunteer Signup
+### Volunteer Signup
 **Volunteer Signup requires Google credentials to record results.**
 Broadcast an sms message to a group of numbers with a volunteer opportunity and record responses to a Google spreadsheet.
 
