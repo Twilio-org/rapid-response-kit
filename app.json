@@ -10,7 +10,7 @@
       "generator": "secret"
     },
     "TWILIO_ACCOUNT_SID": {
-	  "description": "Your Twilio account id"
+	    "description": "Your Twilio account id"
     },
     "TWILIO_AUTH_TOKEN": {
       "description": "Your Twilio authentication token"
