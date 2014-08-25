@@ -113,7 +113,7 @@ associated with administering a database.
 These sample tools are just the beginning, if you want to extend Twilio.org Rapid
 Response Kit to do more, please read our [Contributor's Guide] (contributors.md)
 
-This kit, and all other repos in the Twilio.org Github are open source. If you’d like to be a contributor to this project please contact murphy@twilio.com
+This kit, and all other repos in the Twilio.org Github are open source. If you’d like to be a contributor to this project please contact ebalbuena@twilio.com
 
 ## Deploying
 
