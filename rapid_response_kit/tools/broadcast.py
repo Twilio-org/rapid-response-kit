@@ -15,6 +15,7 @@ def install(app):
 
     @app.route('/broadcast', methods=['POST'])
     def do_broadcast():
+        print 'test'
         numbers = parse_numbers(request.form.get('numbers', ''))
         twiml = "<Response><Say>{}</Say></Response>"
         url = echo_twimlet(twiml.format(request.form.get('message', '')))
@@ -25,9 +26,10 @@ def install(app):
             try:
                 if request.form['method'] == 'sms':
                     client.messages.create(
-                        body=request.form['message'],
                         to=number,
-                        from_=request.form['twilio_number']
+                        from_=request.form.get('twilio_number', None),
+                        body=request.form.get('message', ''),
+                        media_url=request.form.get('media', None),
                     )
                 else:
                     client.calls.create(
