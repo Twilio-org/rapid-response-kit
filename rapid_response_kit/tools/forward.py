@@ -1,6 +1,11 @@
-from rapid_response_kit.utils.clients import twilio
 from flask import render_template, request, redirect, flash
-from rapid_response_kit.utils.helpers import echo_twimlet, convert_to_e164, twilio_numbers
+
+from rapid_response_kit.utils.clients import twilio
+from rapid_response_kit.utils.helpers import (
+    echo_twimlet,
+    convert_to_e164,
+    twilio_numbers
+)
 
 
 def install(app):
@@ -10,7 +15,6 @@ def install(app):
     def show_forwarder():
         numbers = twilio_numbers()
         return render_template("forwarder.html", numbers=numbers)
-
 
     @app.route('/forwarder', methods=['POST'])
     def do_forwarder():

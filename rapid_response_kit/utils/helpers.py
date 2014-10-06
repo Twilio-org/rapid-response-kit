@@ -1,5 +1,4 @@
-from urllib import urlencode
-from urlparse import urlunparse
+from .compat import urlencode, urlunparse, urlparse
 
 from rapid_response_kit.utils.clients import twilio
 import phonenumbers
@@ -36,6 +35,13 @@ def convert_to_e164(raw_phone):
                                       phonenumbers.PhoneNumberFormat.E164)
 
 
+def check_is_valid_url(url):
+    o = urlparse(url)
+    if o.scheme in ['https', 'http']:
+        return o.geturl()
+    return None
+
+
 def echo_twimlet(twiml):
     params = {'Twiml': twiml}
     qs = urlencode(params)
@@ -55,11 +61,13 @@ def twilio_numbers(id_field='sid'):
     result = []
     for number in numbers:
         if number.friendly_name.startswith('[RRKit]'):
-            display_name = '[{}] {}'.format(number.friendly_name[len('[RRKit]') + 1:], number.phone_number)
+            display_name = '[{}] {}'.format(
+                number.friendly_name[len('[RRKit]') + 1:],
+                number.phone_number
+            )
         else:
             display_name = number.phone_number
 
         result.append((getattr(number, id_field), display_name))
 
     return result
-
