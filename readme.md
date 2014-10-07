@@ -1,8 +1,8 @@
 #The Twilio.org Rapid Response Kit
 
-The Twilio.org Rapid Response Kit is a collection of open source communications tools any developer or technically inclined user can deploy quickly. Scroll down to INSTALLATION to get started. 
+The Twilio.org Rapid Response Kit is a collection of open source communications tools any developer or technically inclined user can deploy quickly. Scroll down to INSTALLATION to get started.
 
-Twilio.org is an initiative of the communications API platform company Twilio. Our mission is to provide nonprofit organizations with communications technologies to help them reach their goals and further the impact of social good. 
+Twilio.org is an initiative of the communications API platform company Twilio. Our mission is to provide nonprofit organizations with communications technologies to help them reach their goals and further the impact of social good.
 
 If you are a qualified nonprofit, apply at Twilio.org/apply. Find other open source tools and resources at twilio.org/resources
 
@@ -18,7 +18,7 @@ Please make sure that before you begin you meet the minimum requirements:
 - Python 2.7
 - virtualenv
 - pip
- 
+
 ## Tools available out-of-the-box
 
 Twilio.org Rapid Response Kit comes with several tools already installed. When you
@@ -31,7 +31,7 @@ Use this tool to set up an recorded auto-responder to inbound voice calls or tex
 Useful for setting up and updating information lines.
 
 ### Broadcast
-A simple messaging broadcast app. Send a one-way communications blast to a defined group of contacts. 
+A simple messaging broadcast app. Send a one-way communications blast to a defined group of contacts.
 
 Useful for broadcasting information to volunteers.
 
@@ -51,7 +51,7 @@ A tool that allows you to dial one number, which then will sequentially dial dow
 Useful for setting up ad-hoc response teams and rudimentary call centers.
 
 ### Simple Help Line
-Use this interactive voice response app to set up simple options for callers to press a number for information, or to connect to a pre-determined agent. Each key on the dialpad can be configured to either dial a Phone Number or provide 
+Use this interactive voice response app to set up simple options for callers to press a number for information, or to connect to a pre-determined agent. Each key on the dialpad can be configured to either dial a Phone Number or provide
 information.
 
 Useful for setting up simple phone menus a la "Press 1 to call the Site Manager,
@@ -59,12 +59,34 @@ Press 2 to hear shelter hours, etc"
 
 ### Survey
 **Survey requires integration with Parse to record results**.
+
 An SMS-powered survey app to send out questions to a specified list of numbers and gather responses. You define the response parameters. Survey is similar to Broadcast but instead of broadcasting an informational
 message, it broadcasts a yes / no question. Responses will be recorded in Parse
 for analysis and action.
 
 Useful for quick status and safety checks. Ex: "Can you help at 12th Street
 Response Center?"
+
+#### Getting Parse Keys
+
+1. [Create a free Parse application here](https://parse.com/)
+
+2. Navigate to [https://www.parse.com/apps/](https://www.parse.com/apps/) and create a new application.
+
+3. Click on the settings icon for the application:
+
+!(Parse app settings icon)[http://i.imgur.com/zTPgBX9.png]
+
+4. Find the keys in the Key panel:
+
+!(Parse app key panel)[http://i.imgur.com/GS9ISbU.png]
+
+5. Add your parse keys to the file rapid_response_kit/utils/config.py like so:
+
+```
+PARSE_APP_ID =  'Application ID'
+PARSE_REST_KEY = 'REST API key'
+```
 
 ### Town Hall
 With this group conference call tool, an organizer can dial one number which then dials a list of predefined contacts. Individuals who answer the call are dropped into the same conference. This can handle up to 40 people in one conference call.
@@ -78,7 +100,55 @@ Broadcast an sms message to a group of numbers with a volunteer opportunity and 
 
 Useful for quickly signing up volunteers and easily determining who is available to show up.
 
-Note : If your Google account has 2-factor authentication enabled, you may need to [generate an application specific password] (https://support.google.com/accounts/answer/185833?hl=en).
+Note : If your Google account has 2-factor authentication enabled, you may need to [generate an application specific password](https://support.google.com/accounts/answer/185833?hl=en).
+
+#### Gettin Google account credentials
+
+1. If you're **not** using 2-factor auth, just use your username and password. Be careful not to share them!
+
+2. If you are using 2-factor authenthication, [visit the app passwords page here](https://security.google.com/settings/security/apppasswords)
+
+3. After signing in, choose "custom app" from the "select app" dropdown menu:
+
+!(Drop down menu)[http://i.imgur.com/NedCQaY.png]
+
+4. Name your application and click generate to get your new Google password:
+
+!(Google password)[http://i.imgur.com/aRZRKBR.png]
+
+5. Copy your email and new password into rapid_response_kit/utils/config.py like so:
+
+```
+GOOGLE_ACCOUNT_USER = 'email'
+GOOGLE_ACCOUNT_PASS = 'password'
+```
+
+### Noticeboard
+
+**Noticeboard requires Pusher credentials for realtime updates**
+Noticeboard is a virtual noticeboard where people can send MMS pictures of missing people, damaged items, or useful information to a publicly accessible webpage that will update in realtime as it receives MMS messages, allowing people in disaster relief to share information.
+
+This tool was developed using the brand new MMS messaging capabilities at Twilio.
+
+Noticeboard is a perfect tool to have running in disaster relief centers where people might congregate.
+
+#### Getting Pusher keys
+
+1. [Sign up for a free account as pusher.com](pusher.com)
+
+2. Go to the [app page](https://app.pusher.com/) and click on "new app":
+
+!(pusher new app)[]
+
+3. Name it, do not click on any other options, and click "create app".
+
+4. Your Pusher keys will be displayed on the right hand side of the page. Copy and paste them into rapid_response_kit/utils/config.py like so:
+
+```
+PUSHER_APP_ID='app_id'
+PUSHER_KEY='key'
+PUSHER_SECRET='secret'
+```
 
 ## Installation
 
@@ -90,12 +160,12 @@ or development work, you can follow these simple steps.
 3.  During installation you will be prompted for your Twilio Account
   credentials, you can access these credentials from your [Twilio Account
  	Dashboard] (https://www.twilio.com/user/account).  If you don't have a
- 	Twilio Account yet you can [sign up for a free trial account] (https://www.twilio.com/try-twilio)
+ 	Twilio Account yet you can [sign up for a free trial account](https://www.twilio.com/try-twilio)
 
 Once the Twilio Rapid Response Kit is installed, you can run it in debug
 mode by running the `make debug` command from the Twilio Rapid Response Kit
 folder.  This will start the application running on
-[http://localhost:5000] (http://localhost:5000).
+[http://localhost:5000](http://localhost:5000).
 
 ## Stateless Design
 
@@ -111,7 +181,7 @@ associated with administering a database.
 ## Just the beginning
 
 These sample tools are just the beginning, if you want to extend Twilio.org Rapid
-Response Kit to do more, please read our [Contributor's Guide] (contributors.md)
+Response Kit to do more, please read our [Contributor's Guide] contributors.md)
 
 This kit, and all other repos in the Twilio.org Github are open source. If you’d like to be a contributor to this project please contact murphy@twilio.com
 
@@ -146,9 +216,9 @@ Click the button below to automatically set up the Rapid Response Kit in an app 
 Alternatively, you can manually create a Heroku app and use Git to push and deploy.
 
 ## Meta
-No warranty expressed or implied. Software is as is. 
+No warranty expressed or implied. Software is as is.
 MIT License
-Powered by Twilio .org
+Powered by Twilio.org
 
 
 The Twilio.org Rapid Response Kit is just a flask app, so feel free to deploy as you
