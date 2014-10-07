@@ -30,4 +30,7 @@ test: venv
 	. venv/bin/activate; nosetests tests
 
 clean:
+	rm -rf *.pyc
+
+uninstall:
 	rm -rf venv
