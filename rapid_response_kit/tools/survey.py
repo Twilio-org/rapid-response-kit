@@ -56,6 +56,7 @@ def install(app):
                     body=body,
                     to=number,
                     from_=from_number.phone_number
+                    media_url=request.form.get('media', None)
                 )
                 flash('Sent {} the survey'.format(number), 'success')
             except Exception as e:
