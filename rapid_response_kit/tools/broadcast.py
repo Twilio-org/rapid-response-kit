@@ -15,7 +15,6 @@ def install(app):
 
     @app.route('/broadcast', methods=['POST'])
     def do_broadcast():
-        print 'test'
         numbers = parse_numbers(request.form.get('numbers', ''))
         twiml = "<Response><Say>{}</Say></Response>"
         url = echo_twimlet(twiml.format(request.form.get('message', '')))
