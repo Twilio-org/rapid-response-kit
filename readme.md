@@ -75,11 +75,11 @@ Response Center?"
 
 3. Click on the settings icon for the application:
 
-!(Parse app settings icon)[http://i.imgur.com/zTPgBX9.png]
+![Parse app settings icon](http://i.imgur.com/zTPgBX9.png)
 
 4. Find the keys in the Key panel:
 
-!(Parse app key panel)[http://i.imgur.com/GS9ISbU.png]
+![Parse app key panel](http://i.imgur.com/GS9ISbU.png)
 
 5. Add your parse keys to the file rapid_response_kit/utils/config.py like so:
 
@@ -110,11 +110,11 @@ Note : If your Google account has 2-factor authentication enabled, you may need 
 
 3. After signing in, choose "custom app" from the "select app" dropdown menu:
 
-!(Drop down menu)[http://i.imgur.com/NedCQaY.png]
+![Drop down menu](http://i.imgur.com/NedCQaY.png)
 
 4. Name your application and click generate to get your new Google password:
 
-!(Google password)[http://i.imgur.com/aRZRKBR.png]
+![Google password](http://i.imgur.com/aRZRKBR.png)
 
 5. Copy your email and new password into rapid_response_kit/utils/config.py like so:
 
@@ -138,7 +138,7 @@ Noticeboard is a perfect tool to have running in disaster relief centers where p
 
 2. Go to the [app page](https://app.pusher.com/) and click on "new app":
 
-!(pusher new app)[]
+![pusher new app](http://i.imgur.com/dSpp9MJ.png)
 
 3. Name it, do not click on any other options, and click "create app".
 
