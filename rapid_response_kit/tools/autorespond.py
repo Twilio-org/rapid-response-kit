@@ -1,7 +1,7 @@
 from rapid_response_kit.utils.clients import twilio
 from flask import render_template, request, redirect, flash
 from rapid_response_kit.utils.helpers import echo_twimlet, twilio_numbers
-
+from twilio.twiml import Response
 
 def install(app):
     app.config.apps.register('autorespond', 'Auto Respond', '/auto-respond')
@@ -24,8 +24,13 @@ def install(app):
         voice_url = ''
 
         if len(sms_message) > 0:
-            twiml = '<Response><Sms>{}</Sms></Response>'.format(sms_message)
-            sms_url = echo_twimlet(twiml)
+            r = Response()
+            mms_media = request.form.get('media', '')
+            if len(mms_media) > 0:
+                r.message(sms_message).media(mms_media)
+            else:
+                r.message(sms_message)
+            sms_url = echo_twimlet(r.toxml())
 
         if len(voice_message) > 0:
             twiml = '<Response><Say>{}</Say></Response>'.format(voice_message)
