@@ -84,7 +84,8 @@ def install(app):
                 client.messages.create(
                     body=request.form['message'],
                     to=number,
-                    from_= phoneNumber.phone_number
+                    from_= phoneNumber.phone_number,
+                    media_url=request.form.get('media', None)
                 )
                 flash("Sent {} the message.".format(number), 'success')
             except Exception:
