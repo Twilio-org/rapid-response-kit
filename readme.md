@@ -69,19 +69,19 @@ Response Center?"
 
 #### Getting Parse Keys
 
-1. [Create a free Parse application here](https://parse.com/)
+* [Create a free Parse application here](https://parse.com/)
 
-2. Navigate to [https://www.parse.com/apps/](https://www.parse.com/apps/) and create a new application.
+* Navigate to [https://www.parse.com/apps/](https://www.parse.com/apps/) and create a new application.
 
-3. Click on the settings icon for the application:
+* Click on the settings icon for the application:
 
 ![Parse app settings icon](http://i.imgur.com/zTPgBX9.png)
 
-4. Find the keys in the Key panel:
+* Find the keys in the Key panel:
 
 ![Parse app key panel](http://i.imgur.com/GS9ISbU.png)
 
-5. Add your parse keys to the file rapid_response_kit/utils/config.py like so:
+* Add your parse keys to the file rapid_response_kit/utils/config.py like so:
 
 ```
 PARSE_APP_ID =  'Application ID'
@@ -104,19 +104,19 @@ Note : If your Google account has 2-factor authentication enabled, you may need 
 
 #### Gettin Google account credentials
 
-1. If you're **not** using 2-factor auth, just use your username and password. Be careful not to share them!
+* If you're **not** using 2-factor auth, just use your username and password. Be careful not to share them!
 
-2. If you are using 2-factor authenthication, [visit the app passwords page here](https://security.google.com/settings/security/apppasswords)
+* If you are using 2-factor authenthication, [visit the app passwords page here](https://security.google.com/settings/security/apppasswords)
 
-3. After signing in, choose "custom app" from the "select app" dropdown menu:
+* After signing in, choose "custom app" from the "select app" dropdown menu:
 
 ![Drop down menu](http://i.imgur.com/NedCQaY.png)
 
-4. Name your application and click generate to get your new Google password:
+* Name your application and click generate to get your new Google password:
 
 ![Google password](http://i.imgur.com/aRZRKBR.png)
 
-5. Copy your email and new password into rapid_response_kit/utils/config.py like so:
+* Copy your email and new password into rapid_response_kit/utils/config.py like so:
 
 ```
 GOOGLE_ACCOUNT_USER = 'email'
@@ -134,15 +134,15 @@ Noticeboard is a perfect tool to have running in disaster relief centers where p
 
 #### Getting Pusher keys
 
-1. [Sign up for a free account as pusher.com](pusher.com)
+* [Sign up for a free account as pusher.com](pusher.com)
 
-2. Go to the [app page](https://app.pusher.com/) and click on "new app":
+* Go to the [app page](https://app.pusher.com/) and click on "new app":
 
 ![pusher new app](http://i.imgur.com/dSpp9MJ.png)
 
-3. Name it, do not click on any other options, and click "create app".
+* Name it, do not click on any other options, and click "create app".
 
-4. Your Pusher keys will be displayed on the right hand side of the page. Copy and paste them into rapid_response_kit/utils/config.py like so:
+* Your Pusher keys will be displayed on the right hand side of the page. Copy and paste them into rapid_response_kit/utils/config.py like so:
 
 ```
 PUSHER_APP_ID='app_id'
