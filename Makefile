@@ -14,6 +14,7 @@ install: venv
 develop: venv
 	. venv/bin/activate; pip install -r requirements.txt \
 		--download-cache /tmp/pipcache
+	. venv/bin/activate; pip install -r tests/requirements.txt
 	. venv/bin/activate; python install.py
 	. venv/bin/activate; python setup.py develop
 
@@ -28,6 +29,13 @@ debug: venv
 
 test: venv
 	. venv/bin/activate; nosetests tests
+
+coverage: venv
+	. venv/bin/activate; nosetests --with-coverage --cover-package=rapid_response_kit
+
+flake: venv
+	. venv/bin/activate; flake8 --ignore=E123,E126,E128,E501 tests
+	. venv/bin/activate; flake8 --ignore=F401 rapid_response_kit
 
 clean:
 	rm -rf *.pyc
