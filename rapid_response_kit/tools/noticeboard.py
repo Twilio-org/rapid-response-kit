@@ -26,10 +26,13 @@ def install(app):
     @app.route('/noticeboard', methods=['GET'])
     def show_noticeboard():
         numbers = twilio_numbers()
+        client = twilio()
+        noticeboards = [p.phone_number for p in client.phone_numbers.list() if '[RRKit] Noticeboard' in p.friendly_name]
         return render_template(
             "noticeboard.html",
             url='{0}/live'.format(request.base_url),
-            numbers=numbers
+            numbers=numbers,
+            noticeboards=noticeboards
         )
 
 
@@ -87,10 +90,34 @@ def install(app):
             to {0}noticeboard/live'''.format(request.url_root))
         return r.toxml()
 
-    @app.route('/noticeboard/live', methods=['GET'])
-    def show_noticeboard_live():
+    @app.route('/noticeboard/live/<number>', methods=['GET'])
+    def show_noticeboard_live(number=None):
         pusher_key = app.config.get('PUSHER_KEY', '')
+        client = twilio()
+        try:
+            cleaned_number = parse_numbers(number)
+        except:
+            flash('We did not receive a correct number', 'danger')
+            return redirect('/noticeboard')
+
+        # Build a list of messages to our number that has media attached
+        msgs = [m for m in client.messages.list(to=cleaned_number) if int(m.num_media) > 0]
+
+        '''
+        Super janky because media is seperate from message resources.
+
+        Let's mash the bits we want together and then add them to a list
+        '''
+        msg_media_list = []
+        for m in msgs:
+            d = {}
+            d['image_url'] = client.media(m.sid).list()[0].uri
+            d['body'] = m.body
+            d['from'] = m.from_
+            msg_media_list.append(d)
+
         return render_template(
             'noticeboard_live.html',
-            pusher_key=pusher_key
+            pusher_key=pusher_key,
+            messages=msg_media_list
         )

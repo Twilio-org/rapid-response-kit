@@ -25,26 +25,13 @@
 </head>
     <h1>Live Noticeboard</h1>
     <div class="center" id="message_container">
+        {% for message in messages %}
         <div class="col-sm-4 main">
-            <img src="http://placekitten.com/g/200/300">
-            <p>Description of the image</p>
-            <p>Call +447943511601</p>
+            <img class="noticeboard_img" src="{{message.image_url}}">
+            <p>{{message.body}}</p>
+            <p>Call {{message.from}}</p>
         </div>
-        <div class="col-sm-4 main center">
-            <img src="http://placekitten.com/g/200/300">
-            <p>Description of the image</p>
-            <p>Call +447943511601</p>
-        </div>
-        <div class="col-sm-4 main center">
-            <img src="http://placekitten.com/g/200/300">
-            <p>Description of the image</p>
-            <p>Call +447943511601 if you have information</p>
-        </div>
-        <div class="col-sm-4 main center">
-            <img src="http://placekitten.com/g/200/300">
-            <p>Description of the image</p>
-            <p>Call +447943511601 if you have information</p>
-        </div>
+        {% endfor %}
     </div>
 
 <style>
@@ -52,8 +39,8 @@
     text-align: center;
 }
 .noticeboard_img {
-    height:300;
-    width:200;
+    height:300px;
+    width:300px;
 }
 </style>
 
