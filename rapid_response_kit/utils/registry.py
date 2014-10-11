@@ -14,7 +14,8 @@ class Registry(object):
         if app_id in self.registry:
             raise AlreadyRegistered
 
-        print "Registering {} at {}".format(colored.cyan(name), colored.cyan(link))
+        print "Registering {} at {}".format(
+            colored.cyan(name), colored.cyan(link))
         self.registry[app_id] = {
             'name': name,
             'link': link,

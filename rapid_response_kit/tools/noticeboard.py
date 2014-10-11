@@ -19,28 +19,40 @@ def install(app):
     else:
         print colored.red(
             '''
-            Noticeboard requires Pusher, please add PUSHER_APP_ID, PUSHER_KEY
-            and PUSHER_SECRET to your config.py''')
+            Noticeboard requires Pusher credentials.
+            Please add PUSHER_APP_ID, PUSHER_KEY and PUSHER_SECRET
+            to rapid_response_kit/utils/config.py''')
         return
 
     @app.route('/noticeboard', methods=['GET'])
     def show_noticeboard():
         numbers = twilio_numbers()
         client = twilio()
-        noticeboards = [p.phone_number for p in client.phone_numbers.list() if '[RRKit] Noticeboard' in p.friendly_name]
+
+        # Build a list of numbers that are being used for Noticeboard
+        noticeboard_numbers = []
+        for p in client.phone_numbers.list():
+            if '[RRKit] Noticeboard' in p.friendly_name:
+                noticeboard_numbers.append(p.phone_number)
+
         return render_template(
             "noticeboard.html",
             url='{0}/live'.format(request.base_url),
             numbers=numbers,
-            noticeboards=noticeboards
+            noticeboards=noticeboard_numbers
         )
-
 
     @app.route('/noticeboard', methods=['POST'])
     def do_noticeboard():
         numbers = parse_numbers(request.form['numbers'])
 
         url = "{0}noticeboard/post".format(request.url_root)
+
+        live_url = '{0}noticeboard/live/{1}'.format(
+            request.url_root,
+            request.form['twilio_number'])
+
+        body = request.form.get('message', '').replace('{URL}', live_url)
 
         client = twilio()
 
@@ -56,7 +68,7 @@ def install(app):
                 client.messages.create(
                     to=num,
                     from_=from_number.phone_number,
-                    body=request.form.get('message', ''),
+                    body=body,
                     media_url=request.form.get('media', None)
                 )
                 flash('Sent {0} the message'.format(num), 'success')
@@ -76,7 +88,7 @@ def install(app):
         p = Pusher(pusher_app_id, pusher_key, pusher_secret)
 
         p['rrk_noticeboard_live'].trigger(
-        'new_message',
+            'new_message',
             {
                 'image': request.values.get('MediaUrl0', None),
                 'body': request.values.get('Body', None),
@@ -101,12 +113,16 @@ def install(app):
             return redirect('/noticeboard')
 
         # Build a list of messages to our number that has media attached
-        msgs = [m for m in client.messages.list(to=cleaned_number) if int(m.num_media) > 0]
+        msgs = []
+        for m in client.messages.list(to=cleaned_number):
+            if m.num_media > 0:
+                msgs.append(m)
 
         '''
         Super janky because media is seperate from message resources.
 
         Let's mash the bits we want together and then add them to a list
+        - Paul Hallett
         '''
         msg_media_list = []
         for m in msgs:

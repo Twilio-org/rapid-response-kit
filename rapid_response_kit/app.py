@@ -30,6 +30,7 @@ town_hall.install(app)
 volunteer_signup.install(app)
 noticeboard.install(app)
 
+
 @app.route('/')
 def home():
     return render_template('home.html')

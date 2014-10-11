@@ -15,7 +15,11 @@ class SurveyResult(pObject):
 def install(app):
     if not parse_connect(app.config):
         print colored.red(
-            'Survey requires Parse, please add PARSE_APP_ID and PARSE_REST_KEY to your config.py')
+            '''
+            Survey requires Parse.
+            Please add PARSE_APP_ID and PARSE_REST_KEY
+            to rapid_response_kit/utils/config.py
+            ''')
         return
 
     app.config.apps.register('survey', 'Survey', '/survey')
@@ -59,7 +63,7 @@ def install(app):
                     media_url=request.form.get('media', None)
                 )
                 flash('Sent {} the survey'.format(number), 'success')
-            except Exception as e:
+            except Exception:
                 flash("Failed to send to {}".format(number), 'danger')
 
         return redirect('/survey')

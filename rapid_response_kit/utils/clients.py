@@ -25,6 +25,7 @@ def parse_connect(config=None):
     except:
         return False
 
+
 def pusher_connect(config=None):
     if config is None:
         config = app.config
@@ -38,6 +39,7 @@ def pusher_connect(config=None):
         return True
     except:
         return False
+
 
 def get_google_creds(config=None):
     if config is None:

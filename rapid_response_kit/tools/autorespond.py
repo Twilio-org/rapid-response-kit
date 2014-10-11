@@ -3,6 +3,7 @@ from flask import render_template, request, redirect, flash
 from rapid_response_kit.utils.helpers import echo_twimlet, twilio_numbers
 from twilio.twiml import Response
 
+
 def install(app):
     app.config.apps.register('autorespond', 'Auto Respond', '/auto-respond')
 
