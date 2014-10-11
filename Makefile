@@ -33,12 +33,19 @@ test: venv
 coverage: venv
 	. venv/bin/activate; nosetests --with-coverage --cover-package=rapid_response_kit
 
+htmlcov: venv
+	. venv/bin/activate; nosetests --with-coverage --cover-html --cover-package=rapid_response_kit
+	open cover/index.html
+
+
 flake: venv
-	. venv/bin/activate; flake8 --ignore=E123,E126,E128,E501 tests
 	. venv/bin/activate; flake8 --ignore=F401 rapid_response_kit
 
 clean:
 	rm -rf *.pyc
+	rm -rf cover/
+	rm -rf dist/
+	rm -rf *.egg-info/
 
-uninstall:
+uninstall: clean
 	rm -rf venv
