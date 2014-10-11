@@ -1,5 +1,4 @@
-from urllib import urlencode
-from urlparse import urlunparse
+from .compat import urlencode, urlunparse
 
 from rapid_response_kit.utils.clients import twilio
 import phonenumbers

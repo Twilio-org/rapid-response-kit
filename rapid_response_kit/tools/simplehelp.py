@@ -1,4 +1,4 @@
-from urllib import urlencode
+from rapid_response_kit.utils.compat import urlencode
 
 from rapid_response_kit.utils.clients import twilio
 from flask import render_template, request, redirect, flash

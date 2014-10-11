@@ -17,12 +17,12 @@ from twilio.twiml import Response
 def install(app):
     (user, password) = get_google_creds(app.config)
     if user is None or password is None:
-        print colored.red(
-            '''
-            Volunteer Signup requires Google credentials.
-            please add GOOGLE_ACCOUNT_USER and GOOGLE_ACCOUNT_PASS
-            to rapid_response_kit/utils/config.py'''
-        )
+        print(colored.red(
+                    '''
+                    Volunteer Signup requires Google credentials.
+                    please add GOOGLE_ACCOUNT_USER and GOOGLE_ACCOUNT_PASS
+                    to rapid_response_kit/utils/config.py'''
+                ))
         return
 
     app.config.apps.register(

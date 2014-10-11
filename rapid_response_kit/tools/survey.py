@@ -14,12 +14,12 @@ class SurveyResult(pObject):
 
 def install(app):
     if not parse_connect(app.config):
-        print colored.red(
-            '''
-            Survey requires Parse.
-            Please add PARSE_APP_ID and PARSE_REST_KEY
-            to rapid_response_kit/utils/config.py
-            ''')
+        print(colored.red(
+                    '''
+                    Survey requires Parse.
+                    Please add PARSE_APP_ID and PARSE_REST_KEY
+                    to rapid_response_kit/utils/config.py
+                    '''))
         return
 
     app.config.apps.register('survey', 'Survey', '/survey')

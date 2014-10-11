@@ -17,11 +17,11 @@ def install(app):
     if pusher_connect(app.config):
         app.config.apps.register('noticeboard', 'Noticeboard', '/noticeboard')
     else:
-        print colored.red(
-            '''
-            Noticeboard requires Pusher credentials.
-            Please add PUSHER_APP_ID, PUSHER_KEY and PUSHER_SECRET
-            to rapid_response_kit/utils/config.py''')
+        print(colored.red(
+                    '''
+                    Noticeboard requires Pusher credentials.
+                    Please add PUSHER_APP_ID, PUSHER_KEY and PUSHER_SECRET
+                    to rapid_response_kit/utils/config.py'''))
         return
 
     @app.route('/noticeboard', methods=['GET'])
