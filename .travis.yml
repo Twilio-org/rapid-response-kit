@@ -1,7 +1,6 @@
 language: python
 
 python:
-  - "2.6"
   - "2.7"
   - "3.2"
   - "3.3"
@@ -14,6 +13,8 @@ install:
 
 env:
   - "SECRET_KEY=hello_i_am_a_secret_key"
+  - "TWILIO_ACCOUNT_SID=ACXXX"
+  - "TWILIO_AUTH_TOKEN=ATXXX"
 
 script:
   - nosetests
