@@ -2,9 +2,10 @@ language: python
 
 python:
   - "2.7"
-  - "3.2"
-  - "3.3"
-  - "3.4"
+  # Until Python 3 support, this is removed
+  #- "3.2"
+  #- "3.3"
+  #- "3.4"
 
 install:
   - pip install . --use-mirrors

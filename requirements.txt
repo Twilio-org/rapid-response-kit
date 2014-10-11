@@ -12,5 +12,4 @@ phonenumbers==5.9.2
 git+https://github.com/mbrrg/pusher_client_python.git#egg=pusher
 six==1.5.2
 twilio==3.6.8
-Werkzeug==0.9.4
 ordereddict==1.1
