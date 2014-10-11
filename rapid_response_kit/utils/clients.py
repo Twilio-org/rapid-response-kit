@@ -1,6 +1,7 @@
 from flask import current_app as app
 from parse_rest.connection import register
 from twilio.rest import TwilioRestClient
+from pusher import Pusher
 
 
 def twilio():
@@ -23,6 +24,22 @@ def parse_connect(config=None):
         return True
     except:
         return False
+
+
+def pusher_connect(config=None):
+    if config is None:
+        config = app.config
+
+    pusher_key = config.get('PUSHER_KEY', None)
+    pusher_secret = config.get('PUSHER_SECRET', None)
+    pusher_app_id = config.get('PUSHER_APP_ID', None)
+
+    try:
+        Pusher(pusher_app_id, pusher_key, pusher_secret)
+        return True
+    except:
+        return False
+
 
 def get_google_creds(config=None):
     if config is None:

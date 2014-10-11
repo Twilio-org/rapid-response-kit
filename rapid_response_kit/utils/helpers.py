@@ -1,5 +1,4 @@
-from urllib import urlencode
-from urlparse import urlunparse
+from .compat import urlencode, urlunparse
 
 from rapid_response_kit.utils.clients import twilio
 import phonenumbers
@@ -55,11 +54,13 @@ def twilio_numbers(id_field='sid'):
     result = []
     for number in numbers:
         if number.friendly_name.startswith('[RRKit]'):
-            display_name = '[{}] {}'.format(number.friendly_name[len('[RRKit]') + 1:], number.phone_number)
+            display_name = '[{}] {}'.format(
+                number.friendly_name[len('[RRKit]') + 1:],
+                number.phone_number
+            )
         else:
             display_name = number.phone_number
 
         result.append((getattr(number, id_field), display_name))
 
     return result
-

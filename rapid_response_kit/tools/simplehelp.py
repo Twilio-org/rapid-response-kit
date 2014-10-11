@@ -1,4 +1,4 @@
-from urllib import urlencode
+from rapid_response_kit.utils.compat import urlencode
 
 from rapid_response_kit.utils.clients import twilio
 from flask import render_template, request, redirect, flash
@@ -23,23 +23,26 @@ def install(app):
         numbers = twilio_numbers()
         return render_template("simplehelp.html", keys=keys, numbers=numbers)
 
-
     @app.route('/simplehelp', methods=['POST'])
     def do_simplehelp():
 
         data = parse_form(request.form)
         url = "{}/handle?{}".format(request.base_url, urlencode(data, True))
-        twiml = '<Response><Say>System is down for maintenance</Say></Response>'
-        fallback_url = echo_twimlet(twiml)
+
+        r = Response()
+        r.say('System is down for maintenance')
+        fallback_url = echo_twimlet(r.toxml())
 
         try:
             client = twilio()
-            client.phone_numbers.update(request.form['twilio_number'],
-                                        friendly_name='[RRKit] Simple Help Line',
-                                        voice_url=url,
-                                        voice_method='GET',
-                                        voice_fallback_url=fallback_url,
-                                        voice_fallback_method='GET')
+            client.phone_numbers.update(
+                request.form['twilio_number'],
+                friendly_name='[RRKit] Simple Help Line',
+                voice_url=url,
+                voice_method='GET',
+                voice_fallback_url=fallback_url,
+                voice_fallback_method='GET'
+            )
 
             flash('Help menu configured', 'success')
         except Exception as e:
