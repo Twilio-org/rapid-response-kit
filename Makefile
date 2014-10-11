@@ -46,6 +46,7 @@ clean:
 	rm -rf cover/
 	rm -rf dist/
 	rm -rf *.egg-info/
+	rm -rf build/
 
 uninstall: clean
 	rm -rf venv

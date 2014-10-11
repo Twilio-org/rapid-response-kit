@@ -1,5 +1,5 @@
 args==0.1.0
-clint==0.3.2
+clint==0.3.7
 Flask==0.10.1
 git+https://github.com/dgrtwo/ParsePy.git
 gdata==2.0.18
