@@ -21,6 +21,7 @@ def install(app):
         numbers = parse_numbers(request.form.get('numbers', ''))
         twiml = "<Response><Say>{}</Say></Response>"
         url = echo_twimlet(twiml.format(request.form.get('message', '')))
+        media = None if request.form['media'] == u'' else request.form['media']
 
         client = twilio()
 
@@ -31,7 +32,7 @@ def install(app):
                         to=number,
                         from_=request.form.get('twilio_number', None),
                         body=request.form.get('message', ''),
-                        media_url=request.form.get('media', None),
+                        media_url=media,
                     )
                 else:
                     client.calls.create(
