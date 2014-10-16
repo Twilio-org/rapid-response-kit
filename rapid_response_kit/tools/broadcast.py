@@ -2,7 +2,8 @@ from rapid_response_kit.utils.clients import twilio
 from rapid_response_kit.utils.helpers import (
     parse_numbers,
     echo_twimlet,
-    twilio_numbers
+    twilio_numbers,
+    parse_url
 )
 
 from flask import render_template, request, flash, redirect
@@ -21,7 +22,7 @@ def install(app):
         numbers = parse_numbers(request.form.get('numbers', ''))
         twiml = "<Response><Say>{}</Say></Response>"
         url = echo_twimlet(twiml.format(request.form.get('message', '')))
-        media = None if request.form['media'] == u'' else request.form['media']
+        media = parse_url(request.form.get('media', ''))
 
         client = twilio()
 

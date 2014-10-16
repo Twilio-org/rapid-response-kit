@@ -1,4 +1,4 @@
-from .compat import urlencode, urlunparse
+from .compat import urlencode, urlunparse, urlparse
 
 from rapid_response_kit.utils.clients import twilio
 import phonenumbers
@@ -33,6 +33,13 @@ def convert_to_e164(raw_phone):
 
     return phonenumbers.format_number(phone_representation,
                                       phonenumbers.PhoneNumberFormat.E164)
+
+
+def parse_url(url):
+    o = urlparse(url)
+    if o.scheme in ['https', 'http']:
+        return o.geturl()
+    return None
 
 
 def echo_twimlet(twiml):
