@@ -15,11 +15,6 @@ class SurveyTestCase(KitTestCase):
     def tearDown(self):
         self.stop_patch()
 
-
-    def test_get(self):
-      response = self.app.get('/survey')
-      assert_equal(response.status_code, 200)
-
     def test_post_sms(self):
         self.app.post('/survey', data=
           {
