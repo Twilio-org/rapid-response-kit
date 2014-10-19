@@ -7,11 +7,8 @@ from rapid_response_kit.utils.helpers import (
 )
 
 from clint.textui import colored
-
 from twilio.twiml import Response
-
 from pusher import Pusher
-
 from flask import render_template, request, flash, redirect
 
 
@@ -54,10 +51,9 @@ def install(app):
                                     sms_method='POST',
                                     friendly_name='[RRKit] Noticeboard')
 
-        from_number = client.phone_numbers.get(request.form['twilio_number'])
         live_url = '{0}noticeboard/live/{1}'.format(
             request.url_root,
-            from_number.phone_number
+            request.form['twilio_number']
         )
         numbers = parse_numbers(request.form['numbers'])
         body = request.form.get('message', '').replace('{URL}', live_url)
@@ -67,7 +63,7 @@ def install(app):
         for num in numbers:
             client.messages.create(
                 to=num,
-                from_=from_number.phone_number,
+                from_=request.form['twilio_number'],
                 body=body,
                 media_url=media
             )
@@ -83,16 +79,19 @@ def install(app):
         pusher_secret = app.config.get('PUSHER_SECRET', None)
         pusher_app_id = app.config.get('PUSHER_APP_ID', None)
 
-        p = Pusher(pusher_app_id, pusher_key, pusher_secret)
+        try:
+            p = Pusher(pusher_app_id, pusher_key, pusher_secret)
 
-        p['rrk_noticeboard_live'].trigger(
-            'new_message',
-            {
-                'image': request.values.get('MediaUrl0', None),
-                'body': request.values.get('Body', None),
-                'from': request.values.get('From', None)
-            }
-        )
+            p['rrk_noticeboard_live'].trigger(
+                'new_message',
+                {
+                    'image': request.values.get('MediaUrl0', None),
+                    'body': request.values.get('Body', None),
+                    'from': request.values.get('From', None)
+                }
+            )
+        except:
+            return '<Response />'
 
         r = Response()
         r.message(

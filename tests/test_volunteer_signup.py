@@ -13,6 +13,7 @@ class VolunteerSignupTestCase(KitTestCase):
     def tearDown(self):
         self.stop_patch()
 
+
     def test_post_sms_send(self):
         self.app.post('/volunteer-signup', data={'numbers': '4158675309',
                                           'twilio_number': 'PNSid',
