@@ -102,7 +102,7 @@ def install(app):
     @app.route('/noticeboard/live/<number>', methods=['GET'])
     def show_noticeboard_live(number=None):
         pusher_key = app.config.get('PUSHER_KEY', '')
-        client = twilio()
+        twilio_client = twilio()
         try:
             cleaned_number = number
         except:
@@ -111,7 +111,7 @@ def install(app):
 
         # Build a list of messages to our number that has media attached
         msgs = []
-        for m in client.messages.list(to=cleaned_number):
+        for m in twilio_client.messages.list(to=cleaned_number):
             if int(m.num_media) > 0:
                 msgs.append(m)
 
@@ -124,7 +124,7 @@ def install(app):
         msg_media_list = []
         for m in msgs:
             d = {}
-            d['image_url'] = client.media(m.sid).list()[0].uri
+            d['image_url'] = twilio_client.media(m.sid).list()[0].uri
             d['body'] = m.body
             d['from'] = m.from_
             msg_media_list.append(d)

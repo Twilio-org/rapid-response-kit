@@ -7,6 +7,8 @@ from tests.base import KitTestCase
 class SurveyTestCase(KitTestCase):
 
     def setUp(self):
+        app.config['PARSE_APP_ID'] = 'ApplicationID'
+        app.config['PARSE_REST_KEY'] = 'REST API key'
         self.app = app.test_client()
         self.start_patch('survey')
 
@@ -14,7 +16,7 @@ class SurveyTestCase(KitTestCase):
         self.stop_patch()
 
 
-    def get(self):
+    def test_get(self):
       response = self.app.get('/survey')
       assert_equal(response.status_code, 200)
 

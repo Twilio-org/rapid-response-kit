@@ -7,13 +7,14 @@ from tests.base import KitTestCase
 class NoticeboardTestCase(KitTestCase):
 
     def setUp(self):
+        app.config['PUSHER_KEY'] = 'PK'
+        app.config['PUSHER_APP_ID'] = 'PAID'
+        app.config['PUSHER_SECRET'] = 'PS'
         self.app = app.test_client()
-
         self.start_patch('noticeboard')
 
     def tearDown(self):
         self.stop_patch()
-
 
     def test_post_sms_send(self):
         response = self.app.post('/noticeboard', data={
@@ -48,3 +49,13 @@ class NoticeboardTestCase(KitTestCase):
     def test_noticeboard_inbound_no_creds(self):
         response = self.app.post('/noticeboard/post')
         assert_equal(response.status_code, 200)
+
+    def test_live_noticeboard(self):
+        if self.twilio_patcher:
+            self.twilio_patcher.start()
+
+        response = self.app.get('/noticeboard/live/12345')
+        self.assertEqual(response.status_code, 200)
+
+        if self.twilio_patcher is None:
+            self.twilio_patcher.start()

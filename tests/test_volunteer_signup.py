@@ -7,11 +7,17 @@ from tests.base import KitTestCase
 class VolunteerSignupTestCase(KitTestCase):
 
     def setUp(self):
+        app.config['GOOGLE_ACCOUNT_USER'] = 'email@test.com'
+        app.config['GOOGLE_ACCOUNT_PASS'] = 'password'
         self.app = app.test_client()
         self.start_patch('volunteer_signup')
 
     def tearDown(self):
         self.stop_patch()
+
+    def test_get(self):
+        response = self.app.get('/volunteer-signup')
+        self.assertEqual(response.status_code, 200)
 
 
     def test_post_sms_send(self):
