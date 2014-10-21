@@ -35,7 +35,7 @@ def convert_to_e164(raw_phone):
                                       phonenumbers.PhoneNumberFormat.E164)
 
 
-def parse_url(url):
+def check_is_valid_url(url):
     o = urlparse(url)
     if o.scheme in ['https', 'http']:
         return o.geturl()

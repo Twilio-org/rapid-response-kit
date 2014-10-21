@@ -3,7 +3,7 @@ from flask import render_template, request, redirect, flash
 from rapid_response_kit.utils.helpers import (
     echo_twimlet,
     twilio_numbers,
-    parse_url
+    check_is_valid_url
 )
 from twilio.twiml import Response
 
@@ -30,7 +30,7 @@ def install(app):
 
         if len(sms_message) > 0:
             r = Response()
-            mms_media = parse_url(request.form.get('media', ''))
+            mms_media = check_is_valid_url(request.form.get('media', ''))
             if mms_media:
                 r.message(sms_message).media(mms_media)
             else:

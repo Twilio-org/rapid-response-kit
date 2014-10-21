@@ -3,7 +3,7 @@ from rapid_response_kit.utils.helpers import (
     parse_numbers,
     echo_twimlet,
     twilio_numbers,
-    parse_url
+    check_is_valid_url
 )
 
 from clint.textui import colored
@@ -57,7 +57,7 @@ def install(app):
         )
         numbers = parse_numbers(request.form['numbers'])
         body = request.form.get('message', '').replace('{URL}', live_url)
-        media = parse_url(request.form.get('media', ''))
+        media = check_is_valid_url(request.form.get('media', ''))
 
 
         for num in numbers:

@@ -9,7 +9,8 @@ from rapid_response_kit.utils.clients import twilio, get_google_creds
 from rapid_response_kit.utils.helpers import (
     parse_numbers,
     echo_twimlet,
-    twilio_numbers
+    twilio_numbers,
+    check_is_valid_url
 )
 from twilio.twiml import Response
 
@@ -111,7 +112,7 @@ def install(app):
                     body=request.form['message'],
                     to=number,
                     from_=phoneNumber.phone_number,
-                    media_url=request.form.get('media', None)
+                    media_url=check_is_valid_url(request.form.get('media', ''))
                 )
                 flash("Sent {} the message.".format(number), 'success')
             except Exception:
