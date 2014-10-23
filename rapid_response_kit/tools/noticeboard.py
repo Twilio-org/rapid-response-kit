@@ -94,10 +94,11 @@ def install(app):
         except:
             return '<Response />'
 
+        to = request.values.get('To', '')
         r = Response()
         r.message(
             '''Thank you, your image has been posted
-            to {0}noticeboard/live'''.format(request.url_root))
+            to {0}noticeboard/live/{1}'''.format(request.url_root, to))
         return r.toxml()
 
     @app.route('/noticeboard/live/<number>', methods=['GET'])
