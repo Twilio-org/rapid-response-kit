@@ -86,3 +86,11 @@ h1 {
 code {
   font-size: 80%;
 }
+
+.center {
+    text-align: center;
+}
+.noticeboard_img {
+    height:300px;
+    width:300px;
+}
