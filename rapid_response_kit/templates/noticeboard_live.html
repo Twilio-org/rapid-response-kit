@@ -3,32 +3,18 @@
 {% set title = 'Noticeboard' %}
 
 {% block content %}
-        <link href="/static/css/flexslider.css" rel="stylesheet">
-    <h1>Live Noticeboard for {{ number }}</h1>
-    <div class="center">
-      <ul class="slides" id="message_container">
-        {% for message in messages %}
-        <li>
-        <div class="col-sm-4 main">
-            <img class="noticeboard_img" src="{{message.image_url}}">
-            <p>{{message.body}}</p>
-            <p>Call {{message.from}}</p>
-        </div>
-        </li>
-        {% endfor %}
-      </ul>
+<h1>Live Noticeboard for {{ number }}</h1>
+<div class="center" id="message_container">
+  {% for message in messages %}
+    <div class="col-sm-4 main">
+      <img class="noticeboard_img" src="{{message.image_url}}">
+      <p>{{message.body}}</p>
+      <p>Call {{message.from}}</p>
     </div>
-
-<style>
-.center {
-    text-align: center;
-}
-.noticeboard_img {
-    height:300px;
-    width:300px;
-}
-</style>
+  {% endfor %}
+</div>
 {% endblock %}
+
 {% block scripts %}
 <script src="//js.pusher.com/2.2/pusher.min.js" type="text/javascript"></script>
   <script type="text/javascript">
@@ -36,7 +22,7 @@
     var channel = pusher.subscribe('rrk_noticeboard_live');
     channel.bind('new_message', function(data) {
        var old_data = $('#message_container').html();
-       var new_data = '<li style="display: list-item"><div class="col-sm-4 main center"><img class="noticeboard_img" src="'+ data['image'] + '"><p>'+ data['body']+ '</p><p>Contact '+ data['from']+ ' if you have any information</p></div></li>';
+       var new_data = '<div class="col-sm-4 main center"><img class="noticeboard_img" src="'+ data['image'] + '"><p>'+ data['body']+ '</p><p>Contact '+ data['from']+ ' if you have any information</p></div>';
        $('#message_container').html(new_data + old_data);
     });
   </script>
