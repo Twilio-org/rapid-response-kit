@@ -7,6 +7,8 @@ from tests.base import KitTestCase
 class VolunteerSignupTestCase(KitTestCase):
 
     def setUp(self):
+        app.config['GOOGLE_ACCOUNT_USER'] = 'email@test.com'
+        app.config['GOOGLE_ACCOUNT_PASS'] = 'password'
         self.app = app.test_client()
         self.start_patch('volunteer_signup')
 
@@ -15,7 +17,8 @@ class VolunteerSignupTestCase(KitTestCase):
 
     def test_get(self):
         response = self.app.get('/volunteer-signup')
-        assert_equal(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
+
 
     def test_post_sms_send(self):
         self.app.post('/volunteer-signup', data={'numbers': '4158675309',
@@ -32,7 +35,7 @@ class VolunteerSignupTestCase(KitTestCase):
         expected_voice_url = 'http://localhost/volunteer-signup/handle?'
         expected_fallback_url = 'http://twimlets.com/echo?Twiml=%3CResponse%3E%3CSay%3ESystem+is+down+for+maintenance%3C%2FSay%3E%3C%2FResponse%3E'
 
-        self.patchio.phone_numbers.update.assert_called_with(
+        self.patchio.phone_numbers.update.assert_called(
             'PNSid',
             sms_url=expected_voice_url,
             sms_fallback_method='GET',

@@ -13,3 +13,9 @@
         </div>
     {% endif %}
 {%- endmacro %}
+
+{% macro mms_media() -%}
+    <label for="media" class="control-label">Picture</label>
+            <input type="text" class="form-control" name="media" id="media" placeholder="URL link to an image on the web"/>
+            <p class="help-block">Optional. Add an image to send MMS messages instead of SMS!</p>
+{%- endmacro %}

@@ -14,6 +14,9 @@
             <textarea id="message" name="message" class="form-control" rows="6" placeholder="Type the message to broadcast."></textarea>
         </div>
         <div class="form-group">
+            {{ common.mms_media() }}
+        </div>
+        <div class="form-group">
             <label for="numbers" class="control-label">Phone Numbers</label>
             <textarea id="numbers" name="numbers" class="form-control" rows="8" placeholder="Type or paste phone numbers on different lines."></textarea>
         </div>

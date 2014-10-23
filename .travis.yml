@@ -1,0 +1,19 @@
+language: python
+
+python:
+  - "2.7"
+  # Until Python 3 support, this is removed
+  #- "3.2"
+  #- "3.3"
+  #- "3.4"
+
+install:
+  - pip install . --use-mirrors
+  - pip install -r requirements.txt --use-mirrors
+  - pip install -r tests/requirements.txt --use-mirrors
+
+env:
+  - SECRET_KEY=hello_i_am_a_secret_key TWILIO_ACCOUNT_SID=ACXXX TWILIO_AUTH_TOKEN=ATXXX PUSHER_KEY=psk PUSHER_APP_ID=psaid PUSHER_SECRET=pss PARSE_KEY=ps_key PARSE_REST_KEY=ps_rest GOOGLE_ACCOUNT_USER=test@gmail.com GOOGLE_ACCOUNT_PASS=password
+
+script:
+  - nosetests

@@ -1,7 +1,12 @@
 from rapid_response_kit.utils.clients import twilio
+from rapid_response_kit.utils.helpers import (
+    parse_numbers,
+    echo_twimlet,
+    twilio_numbers,
+    check_is_valid_url
+)
 
 from flask import render_template, request, flash, redirect
-from rapid_response_kit.utils.helpers import parse_numbers, echo_twimlet, twilio_numbers
 
 
 def install(app):
@@ -12,12 +17,12 @@ def install(app):
         numbers = twilio_numbers('phone_number')
         return render_template("broadcast.html", numbers=numbers)
 
-
     @app.route('/broadcast', methods=['POST'])
     def do_broadcast():
         numbers = parse_numbers(request.form.get('numbers', ''))
         twiml = "<Response><Say>{}</Say></Response>"
         url = echo_twimlet(twiml.format(request.form.get('message', '')))
+        media = check_is_valid_url(request.form.get('media', ''))
 
         client = twilio()
 
@@ -25,9 +30,10 @@ def install(app):
             try:
                 if request.form['method'] == 'sms':
                     client.messages.create(
-                        body=request.form['message'],
                         to=number,
-                        from_=request.form['twilio_number']
+                        from_=request.form.get('twilio_number', None),
+                        body=request.form.get('message', ''),
+                        media_url=media,
                     )
                 else:
                     client.calls.create(
