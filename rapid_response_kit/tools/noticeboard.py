@@ -51,19 +51,20 @@ def install(app):
                                     sms_method='POST',
                                     friendly_name='[RRKit] Noticeboard')
 
+        from_number = client.phone_numbers.get(request.form['twilio_number'])
+
         live_url = '{0}noticeboard/live/{1}'.format(
             request.url_root,
-            request.form['twilio_number']
+            from_number.phone_number
         )
         numbers = parse_numbers(request.form['numbers'])
         body = request.form.get('message', '').replace('{URL}', live_url)
         media = check_is_valid_url(request.form.get('media', ''))
 
-
         for num in numbers:
             client.messages.create(
                 to=num,
-                from_=request.form['twilio_number'],
+                from_=from_number.phone_number,
                 body=body,
                 media_url=media
             )
