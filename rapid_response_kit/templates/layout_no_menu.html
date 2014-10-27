@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Twilio Toolkit {% if title %} | {{ title }} {% endif %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="/static/img/favicon.ico">
+        <!-- Bootstrap -->
+        <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/css/styles.css" rel="stylesheet">
+        <link href="/static/css/big-styles.css" rel="stylesheet" media="screen and (min-width:768px)">
+        <link href="/static/css/mobile-styles.css" rel="stylesheet" media="screen and (max-width:768px)">
+
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div id="wrap">
+            <div class="navbar navbar-default navbar-fixed-top" id="topnav">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                    {% for id, app in config.apps.registry.iteritems() %}
+                        <li>
+                            <a href="{{ app.link }}">{{ app.name }}</a>
+                        </li>
+                    {% endfor %}
+                        </ul>
+                    </div>
+                    <!--/.nav-collapse -->
+                </div>
+            </div>
+            <div class="container">
+                <div class="col-sm-12 main">
+                    {% with messages = get_flashed_messages(with_categories=True) %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endwith %}
+
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+            <div class="container">
+                <p class="text-muted credit text-center">
+                    <a href="http://www.twilio.org">
+                        <img src="/static/img/twilioorg-color-logo-web.png" width="130px" height="40px">
+                    </a>
+                An open source project by <a href="http://www.twilio.org">Twilio.org</a>
+                </p>
+            </div>
+         </div>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="/static/js/jquery.js"></script>
+        <!-- Core javascript for every page -->
+        <script src="/static/js/bootstrap.min.js"></script>
+        <!-- Page specific javascript -->
+        {% block scripts %}
+        {% endblock %}
+    </body>
+</html>

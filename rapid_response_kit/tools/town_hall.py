@@ -1,6 +1,10 @@
 from rapid_response_kit.utils.clients import twilio
 from flask import render_template, request, redirect, flash
-from rapid_response_kit.utils.helpers import parse_numbers, echo_twimlet, twilio_numbers
+from rapid_response_kit.utils.helpers import (
+    parse_numbers,
+    echo_twimlet,
+    twilio_numbers
+)
 
 
 def install(app):
@@ -10,7 +14,6 @@ def install(app):
     def show_town_hall():
         numbers = twilio_numbers('phone_number')
         return render_template("town-hall.html", numbers=numbers)
-
 
     @app.route('/town-hall', methods=['POST'])
     def do_town_hall():
@@ -28,7 +31,8 @@ def install(app):
                     to=number,
                     from_=request.form['twilio_number']
                 )
-                flash('{} contacted to join {}'.format(number, room), 'success')
+                flash(
+                    '{} contacted to join {}'.format(number, room), 'success')
             except Exception:
                 flash('Unable to contact {}'.format(number))
 

@@ -1,0 +1,29 @@
+{% extends 'layout_no_menu.html' %}
+{% import 'common.html' as common %}
+{% set title = 'Noticeboard' %}
+
+{% block content %}
+<h1>Live Noticeboard for {{ number }}</h1>
+<div class="center" id="message_container">
+  {% for message in messages %}
+    <div class="col-sm-4 main">
+      <img class="noticeboard_img" src="{{message.image_url}}">
+      <p>{{message.body}}</p>
+      <p>Call {{message.from}}</p>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="//js.pusher.com/2.2/pusher.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    var pusher = new Pusher('{{pusher_key}}');
+    var channel = pusher.subscribe('rrk_noticeboard_live');
+    channel.bind('new_message', function(data) {
+       var old_data = $('#message_container').html();
+       var new_data = '<div class="col-sm-4 main center"><img class="noticeboard_img" src="'+ data['image'] + '"><p>'+ data['body']+ '</p><p>Contact '+ data['from']+ ' if you have any information</p></div>';
+       $('#message_container').html(new_data + old_data);
+    });
+  </script>
+{% endblock %}
