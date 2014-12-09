@@ -1,7 +1,8 @@
 *.pyc
 *.egg-info
+.coverage
 build
 dist
-venv
+venv*
 .DS_Store
-rapid_response_kit/utils/config.py
+cover/*

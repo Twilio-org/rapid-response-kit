@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% import 'common.html' as common %}
+{% set title = 'Volunteer Signup' %}
+
+{% block content %}
+    <h1>Volunteer Signup</h1>
+    <p>Broadcast an sms message to a group of numbers with a volunteer opportunity and record responses to a spreadsheet.</p>
+    <form class="form" method="POST">
+        <div class="form-group">
+            {{ common.twilio_numbers(numbers) }}
+        </div>
+        <div class="form-group">
+            <label for="message" class="control-label">Message</label>
+            <textarea id="message" name="message" class="form-control" rows="6" placeholder="Type the message to send.">Sign up for an event!  Please respond with "[Full Name] [YES or NO]" (i.e. "Jon Smith YES").</textarea>
+        </div>
+        <div class="form-group">
+            {{ common.mms_media() }}
+        </div>
+        <div class="form-group">
+            <label for="numbers" class="control-label">Phone Numbers</label>
+            <textarea id="numbers" name="numbers" class="form-control" rows="8" placeholder="Type or paste phone numbers on different lines."></textarea>
+        </div>
+        <div class="form-group">
+            <label for="file-name" class="control-label">File Name</label>
+            <textarea id="file-name" name="file-name" class="form-control" rows="1" placeholder="Type the name of the file you want to appear in Google Drive."></textarea>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+        </div>
+    </form>
+{% endblock %}

@@ -1,9 +1,15 @@
-from urllib import urlencode
+from rapid_response_kit.utils.compat import urlencode
+
+from flask import render_template, request, redirect, flash
 
 from rapid_response_kit.utils.clients import twilio
-from flask import render_template, request, redirect, flash
-from rapid_response_kit.utils.helpers import parse_numbers, echo_twimlet, twilio_numbers
+from rapid_response_kit.utils.helpers import (
+    parse_numbers,
+    echo_twimlet,
+    twilio_numbers
+)
 from rapid_response_kit.utils.voices import is_valid_language, VOICES
+
 from twilio.twiml import Response
 
 
@@ -17,7 +23,6 @@ def install(app):
         return render_template("ringdown.html", numbers=numbers,
                                voices=voices)
 
-
     @app.route('/ringdown', methods=['POST'])
     def do_ringdown():
         numbers = parse_numbers(request.form.get('numbers', ''))
@@ -28,8 +33,9 @@ def install(app):
 
         url = "{}/handle?{}".format(request.base_url, urlencode(data, True))
 
-        twiml = '<Response><Say>System is down for maintenance</Say></Response>'
-        fallback_url = echo_twimlet(twiml)
+        r = Response()
+        r.say('System is down for maintenance')
+        fallback_url = echo_twimlet(r.toxml())
 
         try:
             client = twilio()

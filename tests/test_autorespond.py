@@ -25,7 +25,25 @@ class AutorespondTestCase(KitTestCase):
         self.app.post('/auto-respond', data={'sms-message': 'Test Message',
                                              'twilio_number': 'PNSid'})
 
-        expected_url = 'http://twimlets.com/echo?Twiml=%3CResponse%3E%3CSms%3ETest+Message%3C%2FSms%3E%3C%2FResponse%3E'
+        expected_url = 'http://twimlets.com/echo?Twiml=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CResponse%3E%3CMessage%3E%3CBody%3ETest+Message%3C%2FBody%3E%3C%2FMessage%3E%3C%2FResponse%3E'
+
+        self.patchio.phone_numbers.update.assert_called_with(
+            'PNSid',
+            friendly_name='[RRKit] Auto-Respond',
+            voice_url='',
+            voice_method='GET',
+            sms_method='GET',
+            sms_url=expected_url)
+
+    def test_post_valid_mms(self):
+        self.app.post('/auto-respond',
+            data={
+            'sms-message': 'test',
+            'twilio_number': 'PNSid',
+            'media': 'https://i.imgur.com/vhRYT3O.jpg'
+        })
+
+        expected_url = 'http://twimlets.com/echo?Twiml=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22%3F%3E%3CResponse%3E%3CMessage%3E%3CBody%3Etest%3C%2FBody%3E%3CMedia%3Ehttps%3A%2F%2Fi.imgur.com%2FvhRYT3O.jpg%3C%2FMedia%3E%3C%2FMessage%3E%3C%2FResponse%3E'
 
         self.patchio.phone_numbers.update.assert_called_with(
             'PNSid',

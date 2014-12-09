@@ -3,17 +3,20 @@ import argparse
 from flask import Flask, render_template, jsonify
 from rapid_response_kit.utils.registry import Registry
 from rapid_response_kit.utils.voices import VOICES
-from rapid_response_kit.tools import autorespond
-from rapid_response_kit.tools import broadcast
-from rapid_response_kit.tools import conference_line
-from rapid_response_kit.tools import forward
-from rapid_response_kit.tools import ringdown
-from rapid_response_kit.tools import simplehelp
-from rapid_response_kit.tools import survey
-from rapid_response_kit.tools import town_hall
+from rapid_response_kit.tools import (
+    autorespond,
+    broadcast,
+    conference_line,
+    forward,
+    noticeboard,
+    ringdown,
+    simplehelp,
+    survey,
+    town_hall,
+    volunteer_signup)
 
 app = Flask(__name__)
-app.config.from_object('rapid_response_kit.utils.config')
+app.config.from_pyfile('utils/config.py')
 
 app.config.apps = Registry()
 
@@ -25,6 +28,9 @@ ringdown.install(app)
 simplehelp.install(app)
 survey.install(app)
 town_hall.install(app)
+volunteer_signup.install(app)
+noticeboard.install(app)
+
 
 @app.route('/')
 def home():

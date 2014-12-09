@@ -1,7 +1,12 @@
 from rapid_response_kit.utils.clients import twilio
 from flask import render_template, request, redirect, flash
-from rapid_response_kit.utils.helpers import echo_twimlet, twilio_numbers
+from rapid_response_kit.utils.helpers import (
+    echo_twimlet,
+    twilio_numbers,
+    check_is_valid_url
+)
 from rapid_response_kit.utils.voices import is_valid_language, VOICES
+from twilio.twiml import Response
 
 
 def install(app):
@@ -33,8 +38,13 @@ def install(app):
         voice_url = ''
 
         if len(sms_message) > 0:
-            twiml = '<Response><Sms>{}</Sms></Response>'.format(sms_message)
-            sms_url = echo_twimlet(twiml)
+            r = Response()
+            mms_media = check_is_valid_url(request.form.get('media', ''))
+            if mms_media:
+                r.message(sms_message).media(mms_media)
+            else:
+                r.message(sms_message)
+            sms_url = echo_twimlet(r.toxml())
 
         if len(voice_message) > 0:
             response = '<Response><Say voice="{0}" language="{1}">{2}</Say></Response>'

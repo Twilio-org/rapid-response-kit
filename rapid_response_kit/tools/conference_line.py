@@ -1,8 +1,14 @@
-from urllib import urlencode
+from rapid_response_kit.utils.compat import urlencode
 
 from rapid_response_kit.utils.clients import twilio
+from rapid_response_kit.utils.helpers import (
+    twilio_numbers,
+    parse_numbers,
+    fallback
+)
+
 from flask import render_template, request, redirect, flash
-from rapid_response_kit.utils.helpers import twilio_numbers, parse_numbers, fallback
+
 from twilio.twiml import Response
 
 
@@ -14,7 +20,6 @@ def install(app):
     def show_conference_line():
         numbers = twilio_numbers()
         return render_template("conference-line.html", numbers=numbers)
-
 
     @app.route('/conference-line', methods=['POST'])
     def do_conference_line():
@@ -34,12 +39,14 @@ def install(app):
 
         try:
             client = twilio()
-            client.phone_numbers.update(request.form['twilio_number'],
-                                        friendly_name='[RRKit] Conference Line',
-                                        voice_url=url,
-                                        voice_method='GET',
-                                        fallback_voice_url=fallback(),
-                                        fallback_voice_method='GET')
+            client.phone_numbers.update(
+                request.form['twilio_number'],
+                friendly_name='[RRKit] Conference Line',
+                voice_url=url,
+                voice_method='GET',
+                fallback_voice_url=fallback(),
+                fallback_voice_method='GET'
+            )
 
             flash('Conference Line configured', 'success')
         except Exception:

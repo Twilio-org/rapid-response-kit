@@ -26,7 +26,9 @@ class BroadcastTestCase(KitTestCase):
         self.patchio.messages.create.assert_called_with(
             body='Test Broadcast',
             to='+14158675309',
-            from_='1415TWILIO')
+            from_='1415TWILIO',
+            media_url=None
+        )
 
     def test_post_sms_multi(self):
         self.app.post('/broadcast', data={'method': 'sms',
@@ -38,12 +40,52 @@ class BroadcastTestCase(KitTestCase):
             call(
                 body='Test Broadcast',
                 to='+14158675309',
-                from_='1415TWILIO'
+                from_='1415TWILIO',
+                media_url=None
             ),
             call(
                 body='Test Broadcast',
                 to='+14158675310',
-                from_='1415TWILIO'
+                from_='1415TWILIO',
+                media_url=None
+            ),
+        ])
+
+    def test_post_mms(self):
+        """ Identical to above, but with a media URL"""
+
+        self.app.post('/broadcast', data={'method': 'sms',
+                                          'twilio_number': '1415TWILIO',
+                                          'numbers': '14158675309',
+                                          'message': 'Test Broadcast',
+                                          'media': 'http://i.imgur.com/UMlp0iK.jpg'})
+
+        self.patchio.messages.create.assert_called_with(
+            body='Test Broadcast',
+            to='+14158675309',
+            from_='1415TWILIO',
+            media_url='http://i.imgur.com/UMlp0iK.jpg'
+        )
+
+    def test_post_multi_mms(self):
+        self.app.post('/broadcast', data={'method': 'sms',
+                                          'twilio_number': '1415TWILIO',
+                                          'numbers': '14158675309\n14158675310',
+                                          'message': 'Test Broadcast',
+                                          'media': 'http://i.imgur.com/UMlp0iK.jpg'})
+
+        self.patchio.messages.create.assert_has_calls([
+            call(
+                body='Test Broadcast',
+                to='+14158675309',
+                from_='1415TWILIO',
+                media_url='http://i.imgur.com/UMlp0iK.jpg'
+            ),
+            call(
+                body='Test Broadcast',
+                to='+14158675310',
+                from_='1415TWILIO',
+                media_url='http://i.imgur.com/UMlp0iK.jpg'
             ),
         ])
 

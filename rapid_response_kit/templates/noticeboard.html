@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% import 'common.html' as common %}
+{% set title = 'Noticeboard' %}
+
+{% block content %}
+    <h1>Noticeboard</h1>
+    <p>Tell volunteers to send in MMS picture messages of missing people, missing items, or other important details. {% if noticeboards %}View the images live for each number on the links below:</p>{% endif %}
+
+    {% for noticeboard in noticeboards %}
+    <p><a href="/noticeboard/live/{{noticeboard}}"><button class="btn btn-primary">View the noticeboard for {{noticeboard}}</button></a></p>
+    {% endfor %}
+    <form class="form" method="POST">
+        <div class="form-group">
+            {{ common.twilio_numbers(numbers) }}
+        </div>
+        <div class="form-group">
+            <label for="message" class="control-label">Message</label>
+            <textarea id="message" name="message" class="form-control" rows="6" placeholder="Type the message to broadcast.">Reply with a picture of missing persons or missing items with a description. Visit {URL} to view the noticeboard</textarea>
+        <p class="help-block">{URL} will be replaced with the link to this noticeboard</p>
+
+        </div>
+        <div class="form-group">
+            {{ common.mms_media() }}
+        </div>
+        <div class="form-group">
+            <label for="numbers" class="control-label">Phone Numbers</label>
+            <textarea id="numbers" name="numbers" class="form-control" rows="8" placeholder="Type or paste phone numbers on different lines."></textarea>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg">Send messages</button>
+        </div>
+    </form>
+{% endblock %}
