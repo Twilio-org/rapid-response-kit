@@ -1,7 +1,7 @@
 {
   "name": "Twilio.org Rapid Response Kit",
   "description": "The Twilio-powered Rapid Response Kit gives you the elements to build and deploy communications apps quickly and easily.",
-  "logo": "https://static1.twilio.com/packages/company/img/logos_icon_round.png",
+  "logo": "https://www.twilio.com/bundles/marketing/img/logos/wordmark-red.svg",
   "repository": "https://github.com/Twilio-org/rapid-response-kit",
   "keywords": ["twilio", "python", "flask"],
   "env": {
