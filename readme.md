@@ -134,7 +134,7 @@ Noticeboard is a perfect tool to have running in disaster relief centers where p
 
 #### Getting Pusher keys
 
-* [Sign up for a free account as pusher.com](pusher.com)
+* [Sign up for a free account as pusher.com](https://pusher.com/signup)
 
 * Go to the [app page](https://app.pusher.com/) and click on "new app":
 
