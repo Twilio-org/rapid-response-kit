@@ -31,8 +31,8 @@ print
 decision = raw_input("Type 'yes' or 'no': ")
 
 if decision == 'yes':
-    parse_app_id = raw_input('Parse app ID (optional): ')
-    parse_rest_key = raw_input('Parse REST Key (optional): ')
+    firebase_url = raw_input('Firebase Url (optional): ')
+    firebase_secret = raw_input('Firebase Secret Key (optional): ')
     pusher_app_id = raw_input('Pusher App ID (optional): ')
     pusher_key = raw_input('Pusher Key (optional): ')
     pusher_secret = raw_input('Pusher Secret (optional): ')
@@ -45,16 +45,16 @@ GOOGLE_ACCOUNT_PASS = '{}'
 PUSHER_APP_ID = '{}'
 PUSHER_KEY = '{}'
 PUSHER_SECRET = '{}'
-PARSE_APP_ID = '{}'
-PARSE_REST_KEY = '{}'
+FIREBASE_URL = '{}'
+FIREBASE_SECRET = '{}'
     '''.format(
         google_user,
         google_pass,
         pusher_app_id,
         pusher_key,
         pusher_secret,
-        parse_app_id,
-        parse_rest_key)
+        firebase_url,
+        firebase_secret)
 
     f = open('rapid_response_kit/utils/config.py', 'rw')
     contents = f.read()

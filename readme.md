@@ -1,6 +1,6 @@
-#The Twilio.org Rapid Response Kit
+# The Twilio.org Rapid Response Kit
 
-The Twilio.org Rapid Response Kit is a collection of open source communications tools any developer or technically inclined user can deploy quickly. Scroll down to INSTALLATION to get started.
+The Twilio.org Rapid Response Kit is a collection of open source communications tools any developer or technically inclined user can deploy quickly. Scroll down to [INSTALLATION](#installation) to get started.
 
 Twilio.org is an initiative of the communications API platform company Twilio. Our mission is to provide nonprofit organizations with communications technologies to help them reach their goals and further the impact of social good.
 
@@ -67,26 +67,31 @@ for analysis and action.
 Useful for quick status and safety checks. Ex: "Can you help at 12th Street
 Response Center?"
 
-#### Getting Parse Keys
+#### Getting Firebase Url and Secret Key
 
-* [Create a free Parse application here](https://parse.com/)
+* [Create a free Firebase project here](https://firebase.google.com/)
 
-* Navigate to [https://www.parse.com/apps/](https://www.parse.com/apps/) and create a new application.
+* Once you are in the [Console](https://console.firebase.google.com/), create a new project.
 
-* Click on the settings icon for the application:
+* To get the **Url** click on the **Database** tab:
 
-![Parse app settings icon](http://i.imgur.com/zTPgBX9.png)
+![Firebase Database Url](http://i.imgur.com/Y8kO1z0.png)
 
-* Find the keys in the Key panel:
+* For the Secret keys, click on the **Project settings** link:
 
-![Parse app key panel](http://i.imgur.com/GS9ISbU.png)
+![Firebase Project settings icon](http://i.imgur.com/icg7BiY.png)
 
-* Add your parse keys to the file rapid_response_kit/utils/config.py like so:
+* From here you can get your **Secret Key**:
+
+![Firebase Secret Key](http://i.imgur.com/Lm2lXib.png)
+
+* Add your Firebase credentials to the file `rapid_response_kit/utils/config.py` like so:
 
 ```
-PARSE_APP_ID =  'Application ID'
-PARSE_REST_KEY = 'REST API key'
+FIREBASE_URL = 'Firebase Url'
+FIREBASE_SECRET = 'Firebase Secret Key'
 ```
+
 
 ### Town Hall
 With this group conference call tool, an organizer can dial one number which then dials a list of predefined contacts. Individuals who answer the call are dropped into the same conference. This can handle up to 40 people in one conference call.
