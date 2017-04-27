@@ -7,8 +7,8 @@ from tests.base import KitTestCase
 class SurveyTestCase(KitTestCase):
 
     def setUp(self):
-        app.config['PARSE_APP_ID'] = 'ApplicationID'
-        app.config['PARSE_REST_KEY'] = 'REST API key'
+        app.config['FIREBASE_URL'] = 'ApplicationID'
+        app.config['FIREBASE_SECRET'] = 'REST API key'
         self.app = app.test_client()
         self.start_patch('survey')
 

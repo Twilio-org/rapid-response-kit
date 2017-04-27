@@ -6,14 +6,12 @@ endif
 
 
 install: venv
-	. venv/bin/activate; pip install -r requirements.txt \
-		--download-cache /tmp/pipcache
+	. venv/bin/activate; pip install -r requirements.txt
 	. venv/bin/activate; python install.py
 	. venv/bin/activate; python setup.py install
 
 develop: venv
-	. venv/bin/activate; pip install -r requirements.txt \
-		--download-cache /tmp/pipcache
+	. venv/bin/activate; pip install -r requirements.txt
 	. venv/bin/activate; pip install -r tests/requirements.txt
 	. venv/bin/activate; python install.py
 	. venv/bin/activate; python setup.py develop
