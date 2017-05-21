@@ -57,7 +57,7 @@ class AutorespondTestCase(KitTestCase):
         self.app.post('/auto-respond', data={'voice-message': 'Test Message',
                                              'twilio_number': 'PNSid'})
 
-        expected_url = 'http://twimlets.com/echo?Twiml=%3CResponse%3E%3CSay%3ETest+Message%3C%2FSay%3E%3C%2FResponse%3E'
+        expected_url = 'http://twimlets.com/echo?Twiml=%3CResponse%3E%3CSay+voice%3D%22man%22+language%3D%22en%22%3ETest+Message%3C%2FSay%3E%3C%2FResponse%3E'
 
         self.patchio.phone_numbers.update.assert_called_with(
             'PNSid',

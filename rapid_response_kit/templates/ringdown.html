@@ -18,7 +18,20 @@
             <input type="text" id="sorry" name="sorry" class="form-control" placeholder="Type a message to play if no one is available."/>
         </div>
         <div class="form-group">
+            {{ common.display_voices(voices) }}
+        </div>
+        <div class="form-group">
+            <label for="voice-language" class="control-label">Language:</label>
+            <select id="voice-language" name="voice-language" class="form-control"></select>
+        </div>
+        <div class="form-group">
             <button type="submit" class="btn btn-primary btn-lg">Call List</button>
         </div>
     </form>
+{% endblock %}
+
+
+{% block scripts %}
+<!-- rrk-plugins (necessary for display languages) -->
+<script src="/static/js/rrk-plugins.js"></script>
 {% endblock %}

@@ -5,6 +5,7 @@ from rapid_response_kit.utils.helpers import (
     twilio_numbers,
     check_is_valid_url
 )
+from rapid_response_kit.utils.voices import is_valid_language, VOICES
 from twilio.twiml import Response
 
 
@@ -14,15 +15,23 @@ def install(app):
     @app.route('/auto-respond', methods=['GET'])
     def show_auto_respond():
         numbers = twilio_numbers()
-        return render_template("auto-respond.html", numbers=numbers)
+        voices = VOICES.keys()
+        return render_template("auto-respond.html", numbers=numbers,
+                               voices=voices)
 
     @app.route('/auto-respond', methods=['POST'])
     def do_auto_respond():
         sms_message = request.form.get('sms-message', '')
         voice_message = request.form.get('voice-message', '')
+        voice_engine = request.form.get('voice-engine', 'man')
+        voice_language = request.form.get('voice-language', 'en')
 
         if len(sms_message) == 0 and len(voice_message) == 0:
             flash('Please provide a message', 'danger')
+            return redirect('/auto-respond')
+
+        if not is_valid_language(voice_engine, voice_language):
+            flash('Please provide a valid language', 'danger')
             return redirect('/auto-respond')
 
         sms_url = ''
@@ -38,7 +47,9 @@ def install(app):
             sms_url = echo_twimlet(r.toxml())
 
         if len(voice_message) > 0:
-            twiml = '<Response><Say>{}</Say></Response>'.format(voice_message)
+            response = '<Response><Say voice="{0}" language="{1}">{2}</Say></Response>'
+            twiml = response.format(voice_engine, voice_language,
+                                    voice_message)
             voice_url = echo_twimlet(twiml)
 
         try:

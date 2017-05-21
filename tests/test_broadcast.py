@@ -96,7 +96,7 @@ class BroadcastTestCase(KitTestCase):
                                           'message': 'Test Broadcast'})
 
         self.patchio.calls.create.assert_called_with(
-            url='http://twimlets.com/echo?Twiml=%3CResponse%3E%3CSay%3ETest+Broadcast%3C%2FSay%3E%3C%2FResponse%3E',
+            url='http://twimlets.com/echo?Twiml=%3CResponse%3E%3CSay+voice%3D%22man%22+language%3D%22en%22%3ETest+Broadcast%3C%2FSay%3E%3C%2FResponse%3E',
             to='+14158675309',
             from_='1415TWILIO')
 
@@ -108,12 +108,12 @@ class BroadcastTestCase(KitTestCase):
 
         self.patchio.calls.create.assert_has_calls([
             call(
-                url='http://twimlets.com/echo?Twiml=%3CResponse%3E%3CSay%3ETest+Broadcast%3C%2FSay%3E%3C%2FResponse%3E',
+                url='http://twimlets.com/echo?Twiml=%3CResponse%3E%3CSay+voice%3D%22man%22+language%3D%22en%22%3ETest+Broadcast%3C%2FSay%3E%3C%2FResponse%3E',
                 to='+14158675309',
                 from_='1415TWILIO'
             ),
             call(
-                url='http://twimlets.com/echo?Twiml=%3CResponse%3E%3CSay%3ETest+Broadcast%3C%2FSay%3E%3C%2FResponse%3E',
+                url='http://twimlets.com/echo?Twiml=%3CResponse%3E%3CSay+voice%3D%22man%22+language%3D%22en%22%3ETest+Broadcast%3C%2FSay%3E%3C%2FResponse%3E',
                 to='+14158675310',
                 from_='1415TWILIO'
             ),

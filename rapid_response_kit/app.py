@@ -1,7 +1,8 @@
 import argparse
 
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 from rapid_response_kit.utils.registry import Registry
+from rapid_response_kit.utils.voices import VOICES
 from rapid_response_kit.tools import (
     autorespond,
     broadcast,
@@ -35,6 +36,10 @@ noticeboard.install(app)
 def home():
     return render_template('home.html')
 
+
+@app.route('/utils/language')
+def language():
+    return jsonify(VOICES)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

@@ -8,6 +8,7 @@ from rapid_response_kit.utils.helpers import (
     echo_twimlet,
     twilio_numbers
 )
+from rapid_response_kit.utils.voices import is_valid_language, VOICES
 
 from twilio.twiml import Response
 
@@ -18,7 +19,9 @@ def install(app):
     @app.route('/ringdown', methods=['GET'])
     def show_ringdown():
         numbers = twilio_numbers()
-        return render_template("ringdown.html", numbers=numbers)
+        voices = VOICES.keys()
+        return render_template("ringdown.html", numbers=numbers,
+                               voices=voices)
 
     @app.route('/ringdown', methods=['POST'])
     def do_ringdown():
@@ -56,8 +59,15 @@ def install(app):
 
         if len(stack) == 0:
             # Nothing else to ringdown
+            voice_engine = request.form.get('voice-engine', 'man')
+            voice_language = request.form.get('voice-language', 'en')
+
+            if not is_valid_language(voice_engine, voice_language):
+                flash('Please provide a valid language', 'danger')
+                return redirect('/ringdown')
+
             resp = Response()
-            resp.say(sorry)
+            resp.say(sorry, voice=voice_engine, language=voice_language)
 
             return str(resp)
 

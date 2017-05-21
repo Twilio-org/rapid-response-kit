@@ -26,8 +26,20 @@
                 <option value="voice">Voice Call</option>
             </select>
         </div>
+        <div class="form-group" id="voice">
+            {{ common.display_voices(voices) }}
+        </div>
+        <div class="form-group" id="language">
+            <label for="voice-language" class="control-label">Language:</label>
+            <select id="voice-language" name="voice-language" class="form-control"></select>
+        </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-lg">Broadcast Message</button>
         </div>
     </form>
+{% endblock %}
+
+{% block scripts %}
+<!-- rrk-plugins (necessary for display languages) -->
+<script src="/static/js/rrk-plugins.js"></script>
 {% endblock %}
