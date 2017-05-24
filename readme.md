@@ -4,7 +4,7 @@ The Twilio.org Rapid Response Kit is a collection of open source communications 
 
 Twilio.org is an initiative of the communications API platform company Twilio. Our mission is to provide nonprofit organizations with communications technologies to help them reach their goals and further the impact of social good.
 
-If you are a qualified nonprofit, apply at Twilio.org/apply. Find other open source tools and resources at twilio.org/resources
+If you are a qualified nonprofit, apply at [Twilio.org/apply](http://twilio.org/apply). Find other open source tools and resources at [twilio.org/resources](http://twilio.org/resources)
 
 ## Prerequisites
 
