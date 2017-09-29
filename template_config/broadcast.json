@@ -1,0 +1,43 @@
+{
+    "key": "sms-broadcast",
+    "icon": "icon-twilio-sms",
+    "product": "Programmable SMS",
+    "name": "SMS Broadcast",
+    "description": "Build a subscriber list and allow administrators to send a broadcast to them",
+    "includeCredentials": true,
+    "instructions": ["Visit https://github.com/Twilio-org/rapid-response-kit for detailed setup instructions"],
+    "visibility": [
+        "console",
+        "console-ui"
+    ],
+    "tags": [
+        "sms",
+        "notify",
+        "rapid-response-kit"
+    ],
+    "functions": [
+        {
+            "route": "/sb_broadcast",
+            "friendlyName": "SMS Subscribe/Broadcast",
+            "eventName": "sms.incoming",
+            "accessControl": "private",
+            "interfaceType": "simple",
+            "reference": "sb_broadcast"
+        }
+    ],
+    "assets": [],
+    "environmentVariables": [
+        {
+            "key": "SB_NOTIFY_SERVICE_SID",
+            "format": "^IS[A-FZa-f0-9]{32}$",
+            "description": "Notify Service SID for delivering SMS messages",
+            "required": true
+        },
+        {
+            "key": "SB_BROADCAST_ADMIN_NUMBERS",
+            "format": ".*",
+            "description": "Comma-separated list of E.164 formatted numbers for administrators who can send broadcasts, e.g. +16512223332,+14159998888",
+            "required": true
+        }
+    ]
+}
