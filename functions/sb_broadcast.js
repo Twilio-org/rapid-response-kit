@@ -4,10 +4,10 @@
 // Configure necessary Twilio objects
 const twilio = require('twilio')
 const client = twilio(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN)
-const notify = client.notify.services(process.env.NOTIFY_SERVICE_SID)
+const notify = client.notify.services(process.env.SB_NOTIFY_SERVICE_SID)
 
 // List of admin phone numbers should be in the system environment
-const adminNumbers = process.env.BROADCAST_ADMIN_NUMBERS
+const adminNumbers = process.env.SB_BROADCAST_ADMIN_NUMBERS
 
 // Response strings - update these to change the copy in the messages
 const helpMessage = 'Hello! Text "subscribe" to receive updates, "stop" to stop getting messages, and "start" to receive them again.'
