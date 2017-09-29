@@ -22,8 +22,9 @@ app.all('/:function', (request, response) => {
   try {
     fn = require(`./functions/${request.params.function}`)
   } catch (e) {
+    console.log(e)
     response.status(404)
-    return response.send('No function available by that name.')
+    return response.send('Could not load function - see console for details.')
   }
 
   // Combine query parameters and POST body into single event object
