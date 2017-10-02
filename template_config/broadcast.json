@@ -1,11 +1,11 @@
 {
-    "key": "sms-broadcast",
+    "key": "sms_broadcast",
     "icon": "icon-twilio-sms",
     "product": "Programmable SMS",
     "name": "SMS Broadcast",
     "description": "Build a subscriber list and allow administrators to send a broadcast to them",
     "includeCredentials": true,
-    "instructions": ["Visit https://github.com/Twilio-org/rapid-response-kit for detailed setup instructions"],
+    "instructions": [],
     "visibility": [
         "console",
         "console-ui"
