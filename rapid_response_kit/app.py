@@ -10,6 +10,7 @@ from rapid_response_kit.tools import (
     noticeboard,
     ringdown,
     simplehelp,
+    smsforwarder,
     survey,
     town_hall,
     volunteer_signup)
@@ -24,6 +25,7 @@ broadcast.install(app)
 conference_line.install(app)
 forward.install(app)
 ringdown.install(app)
+smsforwarder.install(app)
 simplehelp.install(app)
 survey.install(app)
 town_hall.install(app)
